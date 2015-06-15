@@ -8,7 +8,7 @@
  * 
  * File:			BrowserWindow.java
  * Created:			2014/03/30
- * Last modified:	2014/03/31
+ * Last modified:	2015/06/15
  * Author:			Peter Folta <mail@peterfolta.net>
  */
 
@@ -54,7 +54,7 @@ public class BrowserWindow {
 		
 		browserShell.setLayout(new FillLayout());
 		
-		browser = new Browser(browserShell, SWT.NONE);
+		browser = new Browser(browserShell, SWT.MOZILLA);
 		browser.setUrl("https://jira.pf-srv-dev0.folta.local");
 		browser.addTitleListener(new TitleListener() {
 			public void changed(TitleEvent event) {

@@ -8,7 +8,7 @@
  * 
  * File:			Main.java
  * Created:			2014/03/30
- * Last modified:	2014/03/31
+ * Last modified:	2015/06/15
  * Author:			Peter Folta <mail@peterfolta.net>
  */
 
@@ -21,6 +21,9 @@ public class Main {
 	private static GUI gui;
 	
 	public static void main(String[] args) {
+		System.setProperty("org.eclipse.swt.browser.XULRunnerPath", System.getProperty("user.dir") + System.getProperty("file.separator") + "browser");
+		
+		
 		gui = new GUI();
 		
 		gui.start();
