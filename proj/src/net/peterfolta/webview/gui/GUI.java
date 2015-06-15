@@ -1,6 +1,6 @@
 /*
  * WebView - A desktop like webbrowsing experience
- * Copyright (C) 2014 Peter Folta. All rights reserved.
+ * Copyright (C) 2014-2015 Peter Folta. All rights reserved.
  * 
  * Project:			WebView 
  * Version:			1.0.0
@@ -8,7 +8,7 @@
  * 
  * File:			GUI.java
  * Created:			2014/03/30
- * Last modified:	2014/03/31
+ * Last modified:	2015/06/15
  * Author:			Peter Folta <mail@peterfolta.net>
  */
 
