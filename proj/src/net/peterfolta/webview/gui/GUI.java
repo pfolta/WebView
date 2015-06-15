@@ -1,5 +1,5 @@
 /*
- * WebView - A desktop like webbrowsing experience
+ * WebView - A desktop-like web browsing experience
  * Copyright (C) 2014-2015 Peter Folta. All rights reserved.
  * 
  * Project:			WebView 
