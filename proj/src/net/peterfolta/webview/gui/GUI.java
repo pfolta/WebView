@@ -7,8 +7,8 @@
  * Website:			
  * 
  * File:			GUI.java
- * Created:			2014/03/30
- * Last modified:	2015/06/15
+ * Created:			2014/3/30
+ * Last modified:	2015/6/16
  * Author:			Peter Folta <mail@peterfolta.net>
  */
 
