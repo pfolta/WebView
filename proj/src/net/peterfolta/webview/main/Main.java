@@ -14,11 +14,9 @@
 
 package net.peterfolta.webview.main;
 
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Shell;
-
+import net.peterfolta.webview.enums.OperationMode;
 import net.peterfolta.webview.gui.GUI;
-import net.peterfolta.webview.gui.MessageBox;
+import net.peterfolta.webview.wvapp.WVApp;
 
 public class Main {
 	
@@ -26,15 +24,16 @@ public class Main {
 	
 	public static void main(String[] args) {
 		if (args.length == 0) {
-			new MessageBox(new Shell(), "No WebView Application File specified.", "WebView", SWT.ERROR, SWT.OK);
-			System.exit(1);
+			gui = new GUI(OperationMode.SETUP_MODE);
+		} else {
+			gui = new GUI(OperationMode.APPLICATION_MODE);
+			
+			WVApp wvapp = new WVApp(args[0]);
+			wvapp.readFile();
+			
+			System.setProperty("org.eclipse.swt.browser.XULRunnerPath", System.getProperty("user.dir") + System.getProperty("file.separator") + "browser");
+			System.setProperty("org.eclipse.swt.browser.MOZ_PROFILE_PATH", System.getProperty("user.dir") + System.getProperty("file.separator") + "profileFaTeD");
 		}
-		
-		
-		System.setProperty("org.eclipse.swt.browser.XULRunnerPath", System.getProperty("user.dir") + System.getProperty("file.separator") + "browser");
-		
-		
-		gui = new GUI();
 		
 		gui.start();
 	}

@@ -14,30 +14,72 @@
 
 package net.peterfolta.webview.gui;
 
-import org.eclipse.swt.widgets.Display;
+import net.peterfolta.webview.enums.OperationMode;
 
-public class GUI extends Thread {
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
+
+public class GUI {
 	
-	private static Display display;
+	private OperationMode opMode;
 	
-	public void run() {
-		display = getDisplay();
+	private Display display;
+	
+	public GUI(OperationMode opMode) {
+		this.opMode = opMode;
 		
-		new BrowserWindow(display);
+		this.display = Display.getDefault();
+	}
+	
+	public void start() {
+		switch (opMode) {
+			case APPLICATION_MODE:
+				new BrowserWindow(display);
+				
+				break;
+			case SETUP_MODE:
+				new SetupWindow(display);
+				
+				break;
+		}
 		
-		while(!display.isDisposed()) {
-			if(!display.readAndDispatch()) {
+		while (!display.isDisposed()) {
+			if (!display.readAndDispatch()) {
 				display.sleep();
 			}
 		}
 	}
 	
 	public Display getDisplay() {
-		if(display == null) {
-			display = new Display();
-		}
+		return this.display;
+	}
+	
+	public static void centerShellOnPrimaryMonitor(Shell shell) {
+		int monitorWidth	= Display.getCurrent().getPrimaryMonitor().getBounds().width;
+		int monitorHeight	= Display.getCurrent().getPrimaryMonitor().getBounds().height;
 		
-		return display;
+		int shellWidth 		= shell.getSize().x;
+		int shellHeight 	= shell.getSize().y;
+		
+		int shellX			= (monitorWidth - shellWidth)/2;
+		int shellY			= (monitorHeight - shellHeight)/2;
+		
+		shell.setLocation(shellX, shellY);
+	}
+	
+	public static void centerShellOnParent(Shell shell, Shell parent) {
+		int parentX 		= parent.getBounds().x;
+		int parentY			= parent.getBounds().y;
+		int parentWidth		= parent.getBounds().width;
+		int parentHeight	= parent.getBounds().height;
+		
+		int shellWidth 		= shell.getSize().x;
+		int shellHeight 	= shell.getSize().y;
+		
+		int shellX			= parentX + (parentWidth - shellWidth)/2;
+		int shellY			= parentY + (parentHeight - shellHeight)/2;
+		
+		shell.setLocation(shellX, shellY);
 	}
 	
 	public void die() {
