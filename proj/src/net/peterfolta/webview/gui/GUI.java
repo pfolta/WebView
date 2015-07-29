@@ -38,7 +38,7 @@ public class GUI {
 				
 				break;
 			case SETUP_MODE:
-				new SetupWindow(display);
+				new ConfiguratorWindow(display);
 				
 				break;
 		}

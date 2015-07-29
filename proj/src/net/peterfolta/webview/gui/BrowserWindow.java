@@ -55,7 +55,7 @@ public class BrowserWindow {
 		browserShell.setLayout(new FillLayout());
 		
 		browser = new Browser(browserShell, SWT.MOZILLA);
-		browser.setUrl("http://rkcsd.com");
+		browser.setUrl("http://pf-srv-app0.folta.local/jira");
 		browser.addTitleListener(new TitleListener() {
 			@Override
 			public void changed(TitleEvent event) {

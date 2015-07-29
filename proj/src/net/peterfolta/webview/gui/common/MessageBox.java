@@ -8,24 +8,26 @@
  * 
  * File:			MessageBox.java
  * Created:			2015/6/16
- * Last modified:	2015/6/15
+ * Last modified:	2015/7/29
  * Author:			Peter Folta <mail@peterfolta.net>
  */
 
-package net.peterfolta.webview.gui;
+package net.peterfolta.webview.gui.common;
 
 import org.eclipse.swt.widgets.Shell;
 
 public class MessageBox {
 	
+	private org.eclipse.swt.widgets.MessageBox messageBox;
+	
 	private int returnCode;
 	
 	public MessageBox(Shell parent, String text, String title, int icon, int buttons) {
-		org.eclipse.swt.widgets.MessageBox box = new org.eclipse.swt.widgets.MessageBox(parent, icon | buttons);
-		box.setText(title);
-		box.setMessage(text);
+		messageBox = new org.eclipse.swt.widgets.MessageBox(parent, icon | buttons);
+		messageBox.setText(title);
+		messageBox.setMessage(text);
 		
-		returnCode = box.open();
+		returnCode = messageBox.open();
 	}
 	
 	public int getReturnCode() {
