@@ -22,13 +22,14 @@ public class FileDialog {
 	
 	private String path;
 	
-	public FileDialog(Shell parent, int type, String title, String defaultPath, String[] filterNames, String[] filterExtensions) {
+	public FileDialog(Shell parent, int type, String title, String defaultPath, String[] filterNames, String[] filterExtensions, int defaultFilter) {
 		dialog = new org.eclipse.swt.widgets.FileDialog(parent, type);
 		
 		dialog.setText(title);
 		dialog.setFilterPath(defaultPath);
 		dialog.setFilterNames(filterNames);
 		dialog.setFilterExtensions(filterExtensions);
+		dialog.setFilterIndex(defaultFilter);
 		
 		path = dialog.open();
 	}

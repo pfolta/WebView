@@ -73,16 +73,18 @@ public class ConfiguratorWindow {
 	private Group appOptGroup;
 	private Label appOptGroupFileLabel;
 	private Text appOptGroupFileText;
-	private Button appOptGroupFileButton;
+	private Button appOptGroupFileBrowseButton;
 	private Label appOptGroupProfileLabel;
 	private Text appOptGroupProfileText;
-	private Button appOptGroupProfileButton;
+	private Button appOptGroupProfileBrowseButton;
 	
 	private Group optionsGroup;
 	
 	private Group iconGroup;
 	private Button iconFaviconButton;
 	private Button iconCustomButton;
+	private Text iconCustomFileText;
+	private Button iconCustomFileBrowseButton;
 	private Label iconPreviewLabel;
 	
 	private Composite ButtonCps;
@@ -267,18 +269,18 @@ public class ConfiguratorWindow {
 		appOptGroupFileText = new Text(appOptGroup, SWT.BORDER);
 		appOptGroupFileText.setLayoutData(gridData);
 		
-		appOptGroupFileButton = new Button(appOptGroup, SWT.PUSH);
-		appOptGroupFileButton.setText("Browse...");
-		appOptGroupFileButton.addListener(SWT.Selection,  new Listener() {
+		appOptGroupFileBrowseButton = new Button(appOptGroup, SWT.PUSH);
+		appOptGroupFileBrowseButton.setText("Browse...");
+		appOptGroupFileBrowseButton.addListener(SWT.Selection,  new Listener() {
 			public void handleEvent(Event event) {
 				String[] filterNames = new String[] { "WebView Application File (*.wvapp)", "All Files (*.*)" };
 				String[] filterExtensions = new String[] { "*.wvapp", "*.*" };
 				
-				FileDialog appFileDialog = new FileDialog(configuratorShell, SWT.SAVE, "Save Application File", appOptGroupFileText.getText(), filterNames, filterExtensions);
+				FileDialog appFileDialog = new FileDialog(configuratorShell, SWT.SAVE, "Save Application File", appOptGroupFileText.getText(), filterNames, filterExtensions, 0);
 				String appFile = appFileDialog.getPath();
 				
 				if (appFile != null) {
-					appOptGroupFileText.setText(appFile);					
+					appOptGroupFileText.setText(appFile);
 				}
 			}
 		});
@@ -296,15 +298,15 @@ public class ConfiguratorWindow {
 		appOptGroupProfileText = new Text(appOptGroup, SWT.BORDER);
 		appOptGroupProfileText.setLayoutData(gridData);
 		
-		appOptGroupProfileButton = new Button(appOptGroup, SWT.PUSH);
-		appOptGroupProfileButton.setText("Browse...");
-		appOptGroupProfileButton.addListener(SWT.Selection,  new Listener() {
+		appOptGroupProfileBrowseButton = new Button(appOptGroup, SWT.PUSH);
+		appOptGroupProfileBrowseButton.setText("Browse...");
+		appOptGroupProfileBrowseButton.addListener(SWT.Selection,  new Listener() {
 			public void handleEvent(Event event) {
 				DirectoryDialog profilePathDialog = new DirectoryDialog(configuratorShell, "Select Profile Path", "Choose or create a new directory to store this web application's profile. It is recommended to select an empty directory.", appOptGroupProfileText.getText());
 				String profilePath = profilePathDialog.getPath();
 				
 				if (profilePath != null) {
-					appOptGroupProfileText.setText(profilePath);					
+					appOptGroupProfileText.setText(profilePath);
 				}
 			}
 		});
@@ -350,6 +352,40 @@ public class ConfiguratorWindow {
 		
 		iconCustomButton = new Button(iconGroup, SWT.RADIO);
 		iconCustomButton.setText("Use Custom Icon");
+		
+		iconCustomFileText = new Text(iconGroup, SWT.BORDER);
+		
+		iconCustomFileBrowseButton = new Button(iconGroup, SWT.PUSH);
+		iconCustomFileBrowseButton.setText("Browse...");
+		iconCustomFileBrowseButton.addListener(SWT.Selection,  new Listener() {
+			public void handleEvent(Event event) {
+				String[] filterNames = new String[] {
+					"Graphics Interchange Format (*.gif)",
+					"JPEG File Interchange Format (*.jpg; *.jpeg; *.jfif; *.jpe)",
+					"Portable Network Graphics (*.png)",
+					"Tagged Image File Format (*.tif; *.tiff)",
+					"Windows Bitmap (*.bmp; *.dib; *.rle)",
+					"All Picture Files (*.gif; *.jpg; *.jpeg; *.jfif; *.jpe; *.png; *.tif; *.tiff; *.bmp; *.dib; *.rle)",
+					"All Files (*.*)"
+				};
+				String[] filterExtensions = new String[] {
+					"*.gif",
+					"*.jpg;*.jpeg;*.jfif;*.jpe",
+					"*.png",
+					"*.tif;*.tiff",
+					"*.bmp;*.dib;*.rle",
+					"*.gif;*.jpg;*.jpeg;*.jfif;*.jpe;*.png;*.tif;*.tiff;*.bmp;*.dib;*.rle",
+					"*.*"
+				};
+				
+				FileDialog iconCustomFileDialog = new FileDialog(configuratorShell, SWT.OPEN, "Open Image", iconCustomFileText.getText(), filterNames, filterExtensions, 5);
+				String iconCustomFile = iconCustomFileDialog.getPath();
+				
+				if (iconCustomFile != null) {
+					iconCustomFileText.setText(iconCustomFile);
+				}
+			}
+		});
 		
 		ButtonCps = new Composite(configuratorShell, SWT.NONE);
 		
