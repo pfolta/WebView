@@ -6,9 +6,9 @@
  * Version:			1.0.0
  * Website:			
  * 
- * File:			SetupWindow.java
+ * File:			ConfiguratorWindow.java
  * Created:			2015/6/16
- * Last modified:	2015/6/16
+ * Last modified:	2015/7/29
  * Author:			Peter Folta <mail@peterfolta.net>
  */
 
@@ -24,6 +24,7 @@ import org.eclipse.swt.events.ShellEvent;
 import org.eclipse.swt.events.ShellListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageLoader;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -37,6 +38,7 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.ToolTip;
 
 public class ConfiguratorWindow {
 	
@@ -61,6 +63,7 @@ public class ConfiguratorWindow {
 	private Text appGroupUrlText;
 	private Label appGroupTitleLabel;
 	private Text appGroupTitleText;
+	private Button appGroupDynamicPageTitleButton;
 	
 	private Group shortcutGroup;
 	private Button shortcutStartButton;
@@ -126,7 +129,7 @@ public class ConfiguratorWindow {
 		appGroup.setLayoutData(gridData);
 		
 		gridLayout = new GridLayout();
-		gridLayout.numColumns = 2;
+		gridLayout.numColumns = 3;
 		gridLayout.marginHeight = 10;
 		gridLayout.marginWidth = 10;
 		gridLayout.horizontalSpacing = 5;
@@ -142,6 +145,7 @@ public class ConfiguratorWindow {
 		appGroupUrlLabel.setLayoutData(gridData);
 		
 		gridData = new GridData(GridData.FILL_HORIZONTAL);
+		gridData.horizontalSpan = 2;
 		
 		appGroupUrlText = new Text(appGroup, SWT.BORDER);
 		appGroupUrlText.setLayoutData(gridData);
@@ -178,9 +182,38 @@ public class ConfiguratorWindow {
 		appGroupTitleLabel.setLayoutData(gridData);
 		
 		gridData = new GridData(GridData.FILL_HORIZONTAL);
+		gridData.horizontalSpan = 2;
 		
 		appGroupTitleText = new Text(appGroup, SWT.BORDER);
 		appGroupTitleText.setLayoutData(gridData);
+		
+		gridData = new GridData();
+		gridData.horizontalSpan = 2;
+		gridData.horizontalIndent = 75;
+		
+		appGroupDynamicPageTitleButton = new Button(appGroup, SWT.CHECK);
+		appGroupDynamicPageTitleButton.setText("Use Dynamic Page Title");
+		appGroupDynamicPageTitleButton.setLayoutData(gridData);
+		appGroupDynamicPageTitleButton.setSelection(true);
+		
+		final ToolTip tip = new ToolTip(configuratorShell, SWT.BALLOON | SWT.ICON_INFORMATION);
+		tip.setText("Use Dynamic Page Title");
+		tip.setMessage("Use the web application's dynamic page title as the window title.\nOtherwise the title specified above will be used.");
+		
+		final Label icon = new Label(appGroup, SWT.NONE);
+		icon.setImage(new Image(display, new ImageLoader().load("resources/icon_information.png")[0]));
+		icon.addListener(SWT.MouseEnter, new Listener() {
+			public void handleEvent(Event event) {
+				Point loc = icon.toDisplay(icon.getSize());
+				tip.setLocation(loc);
+				tip.setVisible(true);
+			}
+		});
+		icon.addListener(SWT.MouseExit, new Listener() {
+			public void handleEvent(Event event) {
+				tip.setVisible(false);
+			}
+		});
 		
 		shortcutGroup = new Group(configuratorShell, SWT.NONE);
 		shortcutGroup.setText("Create Shortcuts");
@@ -307,10 +340,6 @@ public class ConfiguratorWindow {
 		iconFaviconButton.setLayoutData(gridData);
 		
 		iconPreviewLabel = new Label(iconGroup, SWT.BORDER);
-		
-		Image image = new Image(display, new ImageLoader().load("res/progress-bar.gif")[0].scaledTo(128, 5));
-		
-		iconPreviewLabel.setImage(image);
 		
 		gridData = new GridData();
 		gridData.verticalSpan = 2;
