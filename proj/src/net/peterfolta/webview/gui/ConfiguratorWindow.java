@@ -17,12 +17,14 @@ package net.peterfolta.webview.gui;
 import net.peterfolta.webview.common.URLMetaExtractor;
 import net.peterfolta.webview.gui.common.DirectoryDialog;
 import net.peterfolta.webview.gui.common.FileDialog;
+import net.peterfolta.webview.gui.common.MessageBox;
 import net.peterfolta.webview.main.Main;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ShellEvent;
 import org.eclipse.swt.events.ShellListener;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.ImageLoader;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
@@ -93,7 +95,7 @@ public class ConfiguratorWindow {
 	
 	private boolean urldirty;
 	
-	public ConfiguratorWindow(Display display) {
+	public ConfiguratorWindow(final Display display) {
 		configuratorShell = new Shell(display, SWT.TITLE | SWT.MIN | SWT.CLOSE);
 		configuratorShell.setText("WebView Configurator");
 		
@@ -325,7 +327,7 @@ public class ConfiguratorWindow {
 		iconGroup.setLayoutData(gridData);
 		
 		gridLayout = new GridLayout();
-		gridLayout.numColumns = 2;
+		gridLayout.numColumns = 3;
 		gridLayout.marginHeight = 10;
 		gridLayout.marginWidth = 10;
 		gridLayout.horizontalSpacing = 5;
@@ -337,6 +339,7 @@ public class ConfiguratorWindow {
 		iconFaviconButton.setSelection(true);
 		
 		gridData = new GridData();
+		gridData.horizontalSpan = 2;
 		gridData.grabExcessHorizontalSpace = true;
 		
 		iconFaviconButton.setLayoutData(gridData);
@@ -344,7 +347,7 @@ public class ConfiguratorWindow {
 		iconPreviewLabel = new Label(iconGroup, SWT.BORDER);
 		
 		gridData = new GridData();
-		gridData.verticalSpan = 2;
+		gridData.verticalSpan = 3;
 		gridData.heightHint = 128;
 		gridData.widthHint = 128;
 		
@@ -353,7 +356,22 @@ public class ConfiguratorWindow {
 		iconCustomButton = new Button(iconGroup, SWT.RADIO);
 		iconCustomButton.setText("Use Custom Icon");
 		
+		gridData = new GridData();
+		gridData.horizontalSpan = 2;
+		gridData.grabExcessHorizontalSpace = true;
+		
+		iconCustomButton.setLayoutData(gridData);
+		
+		gridData = new GridData(GridData.FILL_HORIZONTAL);
+		
 		iconCustomFileText = new Text(iconGroup, SWT.BORDER);
+		iconCustomFileText.setLayoutData(gridData);
+		iconCustomFileText.addListener(SWT.Activate, new Listener() {
+			public void handleEvent(Event arg0) {
+				iconFaviconButton.setSelection(false);
+				iconCustomButton.setSelection(true);
+			}
+		});
 		
 		iconCustomFileBrowseButton = new Button(iconGroup, SWT.PUSH);
 		iconCustomFileBrowseButton.setText("Browse...");
@@ -365,7 +383,8 @@ public class ConfiguratorWindow {
 					"Portable Network Graphics (*.png)",
 					"Tagged Image File Format (*.tif; *.tiff)",
 					"Windows Bitmap (*.bmp; *.dib; *.rle)",
-					"All Picture Files (*.gif; *.jpg; *.jpeg; *.jfif; *.jpe; *.png; *.tif; *.tiff; *.bmp; *.dib; *.rle)",
+					"Windows Icon (*.ico)",
+					"All Picture Files (*.gif; *.jpg; *.jpeg; *.jfif; *.jpe; *.png; *.tif; *.tiff; *.bmp; *.dib; *.rle; *.ico)",
 					"All Files (*.*)"
 				};
 				String[] filterExtensions = new String[] {
@@ -374,18 +393,41 @@ public class ConfiguratorWindow {
 					"*.png",
 					"*.tif;*.tiff",
 					"*.bmp;*.dib;*.rle",
-					"*.gif;*.jpg;*.jpeg;*.jfif;*.jpe;*.png;*.tif;*.tiff;*.bmp;*.dib;*.rle",
+					"*.ico",
+					"*.gif;*.jpg;*.jpeg;*.jfif;*.jpe;*.png;*.tif;*.tiff;*.bmp;*.dib;*.rle;*.ico",
 					"*.*"
 				};
 				
-				FileDialog iconCustomFileDialog = new FileDialog(configuratorShell, SWT.OPEN, "Open Image", iconCustomFileText.getText(), filterNames, filterExtensions, 5);
+				FileDialog iconCustomFileDialog = new FileDialog(configuratorShell, SWT.OPEN, "Open Image", iconCustomFileText.getText(), filterNames, filterExtensions, 6);
 				String iconCustomFile = iconCustomFileDialog.getPath();
 				
 				if (iconCustomFile != null) {
-					iconCustomFileText.setText(iconCustomFile);
+					try {
+						ImageData[] imageData = new ImageLoader().load(iconCustomFile);
+						int largestIndex = 0;
+						
+						for (int i = 0; i < imageData.length; i++) {
+							if (imageData[i].width > imageData[largestIndex].width) {
+								largestIndex = i;
+							}
+						}
+						
+						Image image = new Image(display, imageData[largestIndex].scaledTo(128, 128));
+						
+						iconPreviewLabel.setImage(image);
+						
+						iconCustomFileText.setText(iconCustomFile);
+						
+						iconFaviconButton.setSelection(false);
+						iconCustomButton.setSelection(true);
+					} catch (Exception exception) {
+						new MessageBox(configuratorShell, exception.getMessage(), "WebView Configurator", SWT.ERROR, SWT.OK);
+					}
 				}
 			}
 		});
+		
+		gridData = new GridData(GridData.VERTICAL_ALIGN_BEGINNING);
 		
 		ButtonCps = new Composite(configuratorShell, SWT.NONE);
 		
