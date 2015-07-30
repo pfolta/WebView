@@ -8,7 +8,7 @@
  * 
  * File:			ConfiguratorWindow.java
  * Created:			2015/6/16
- * Last modified:	2015/7/29
+ * Last modified:	2015/7/30
  * Author:			Peter Folta <mail@peterfolta.net>
  */
 
@@ -23,6 +23,7 @@ import net.peterfolta.webview.main.Main;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ShellEvent;
 import org.eclipse.swt.events.ShellListener;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.ImageLoader;
@@ -88,6 +89,9 @@ public class ConfiguratorWindow {
 	private Text iconCustomFileText;
 	private Button iconCustomFileBrowseButton;
 	private Label iconPreviewLabel;
+	private Composite iconWarningComposite;
+	private Label iconWarningIconLabel;
+	private Label iconWarningTextLabel;
 	
 	private Composite ButtonCps;
 	private Button ButtonCpsOkButton;
@@ -209,7 +213,7 @@ public class ConfiguratorWindow {
 		icon.addListener(SWT.MouseEnter, new Listener() {
 			public void handleEvent(Event event) {
 				Point loc = icon.toDisplay(icon.getSize());
-				tip.setLocation(loc);
+				tip.setLocation(loc.x - 8, loc.y);
 				tip.setVisible(true);
 			}
 		});
@@ -330,7 +334,7 @@ public class ConfiguratorWindow {
 		gridLayout.numColumns = 3;
 		gridLayout.marginHeight = 10;
 		gridLayout.marginWidth = 10;
-		gridLayout.horizontalSpacing = 5;
+		gridLayout.horizontalSpacing = 10;
 		gridLayout.verticalSpacing = 10;
 		iconGroup.setLayout(gridLayout);
 		
@@ -347,7 +351,7 @@ public class ConfiguratorWindow {
 		iconPreviewLabel = new Label(iconGroup, SWT.BORDER);
 		
 		gridData = new GridData();
-		gridData.verticalSpan = 3;
+		gridData.verticalSpan = 4;
 		gridData.heightHint = 128;
 		gridData.widthHint = 128;
 		
@@ -384,7 +388,7 @@ public class ConfiguratorWindow {
 					"Tagged Image File Format (*.tif; *.tiff)",
 					"Windows Bitmap (*.bmp; *.dib; *.rle)",
 					"Windows Icon (*.ico)",
-					"All Picture Files (*.gif; *.jpg; *.jpeg; *.jfif; *.jpe; *.png; *.tif; *.tiff; *.bmp; *.dib; *.rle; *.ico)",
+					"All Image Files (*.gif; *.jpg; *.jpeg; *.jfif; *.jpe; *.png; *.tif; *.tiff; *.bmp; *.dib; *.rle; *.ico)",
 					"All Files (*.*)"
 				};
 				String[] filterExtensions = new String[] {
@@ -411,6 +415,12 @@ public class ConfiguratorWindow {
 								largestIndex = i;
 							}
 						}
+
+						if (imageData[largestIndex].width < 128 || imageData[largestIndex].height < 128) {
+							iconWarningComposite.setVisible(true);
+						} else {
+							iconWarningComposite.setVisible(false);
+						}
 						
 						Image image = new Image(display, imageData[largestIndex].scaledTo(128, 128));
 						
@@ -426,6 +436,29 @@ public class ConfiguratorWindow {
 				}
 			}
 		});
+		
+		iconWarningComposite = new Composite(iconGroup, SWT.BORDER);
+		iconWarningComposite.setBackground(new Color(display, 255, 255, 225));
+		iconWarningComposite.setVisible(false);
+		
+		gridData = new GridData();
+		gridData.horizontalSpan = 2;
+		iconWarningComposite.setLayoutData(gridData);
+		
+		gridLayout = new GridLayout();
+		gridLayout.numColumns = 2;
+		iconWarningComposite.setLayout(gridLayout);
+		
+		gridData = new GridData(GridData.VERTICAL_ALIGN_BEGINNING);
+		
+		iconWarningIconLabel = new Label(iconWarningComposite, SWT.NONE);
+		iconWarningIconLabel.setImage(new Image(display, new ImageLoader().load("resources/icon_information.png")[0]));
+		iconWarningIconLabel.setBackground(new Color(display, 255, 255, 225));
+		iconWarningIconLabel.setLayoutData(gridData);
+		
+		iconWarningTextLabel = new Label(iconWarningComposite, SWT.NONE);
+		iconWarningTextLabel.setText("The selected image is smaller than 128x128.\nThe icon may appear pixelated.");
+		iconWarningTextLabel.setBackground(new Color(display, 255, 255, 225));
 		
 		gridData = new GridData(GridData.VERTICAL_ALIGN_BEGINNING);
 		
