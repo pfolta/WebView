@@ -23,17 +23,22 @@ public class Main {
 	private static GUI gui;
 	
 	public static void main(String[] args) {
-		if (args.length == 0) {
-			gui = new GUI(OperationMode.SETUP_MODE);
-		} else {
-			gui = new GUI(OperationMode.APPLICATION_MODE);
-			
-			WVApp wvapp = new WVApp(args[0]);
-			wvapp.readFile();
-			
-			System.setProperty("org.eclipse.swt.browser.XULRunnerPath", System.getProperty("user.dir") + System.getProperty("file.separator") + "browser");
-			System.setProperty("org.eclipse.swt.browser.MOZ_PROFILE_PATH", System.getProperty("user.dir") + System.getProperty("file.separator") + "profileFaTeD");
-		}
+//		if (args.length == 0) {
+//			gui = new GUI(OperationMode.SETUP_MODE);
+//		} else {
+//			gui = new GUI(OperationMode.APPLICATION_MODE);
+//			
+//			WVApp wvapp = new WVApp(args[0]);
+//			wvapp.readFile();
+//			
+//			System.setProperty("org.eclipse.swt.browser.XULRunnerPath", System.getProperty("user.dir") + System.getProperty("file.separator") + "browser");
+//			System.setProperty("org.eclipse.swt.browser.MOZ_PROFILE_PATH", System.getProperty("user.dir") + System.getProperty("file.separator") + "profile");
+//		}
+		
+		gui = new GUI(OperationMode.APPLICATION_MODE);
+		
+		System.setProperty("org.eclipse.swt.browser.XULRunnerPath", System.getProperty("user.dir") + System.getProperty("file.separator") + "browser");
+		System.setProperty("org.eclipse.swt.browser.MOZ_PROFILE_PATH", System.getProperty("user.dir") + System.getProperty("file.separator") + "profile");
 		
 		gui.start();
 	}
