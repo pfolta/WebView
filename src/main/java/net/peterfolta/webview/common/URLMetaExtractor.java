@@ -2,14 +2,13 @@
  * WebView - A desktop-like web browsing experience
  * Copyright (C) 2014-2015 Peter Folta. All rights reserved.
  * 
- * Project:			WebView 
- * Version:			1.0.0
- * Website:			
- * 
- * File:			SetupWindow.java
- * Created:			2015/7/28
- * Last modified:	2015/7/28
- * Author:			Peter Folta <mail@peterfolta.net>
+ * Project:         WebView
+ * Version:         0.0.1
+ * Website:
+ *
+ * File:            URLMetaExtractor.java
+ * Created:         2015-07-28
+ * Author:          Peter Folta <mail@peterfolta.net>
  */
 
 package net.peterfolta.webview.common;
