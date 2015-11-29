@@ -29,14 +29,13 @@ public class Main {
 //			
 //			WVApp wvapp = new WVApp(args[0]);
 //			wvapp.readFile();
-//			
-//			System.setProperty("org.eclipse.swt.browser.XULRunnerPath", System.getProperty("user.dir") + System.getProperty("file.separator") + "browser");
-//			System.setProperty("org.eclipse.swt.browser.MOZ_PROFILE_PATH", System.getProperty("user.dir") + System.getProperty("file.separator") + "profile");
 //		}
 
         gui = new GUI(OperationMode.APPLICATION_MODE);
 
-        System.setProperty("org.eclipse.swt.browser.XULRunnerPath", System.getProperty("user.dir") + System.getProperty("file.separator") + "browser");
+        String XULRunnerPath = System.getProperty("user.dir") + System.getProperty("file.separator") + "target" + System.getProperty("file.separator") + "xulrunner";
+
+        System.setProperty("org.eclipse.swt.browser.XULRunnerPath", XULRunnerPath);
         System.setProperty("org.eclipse.swt.browser.MOZ_PROFILE_PATH", System.getProperty("user.dir") + System.getProperty("file.separator") + "profile");
 
         gui.start();

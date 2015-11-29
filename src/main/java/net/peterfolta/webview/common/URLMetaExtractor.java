@@ -39,7 +39,7 @@ public class URLMetaExtractor {
 
         InputStream in = conn.getInputStream();
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-        int n = 0, totalRead = 0;
+        int n, totalRead = 0;
         char[] buf = new char[1024];
         StringBuilder content = new StringBuilder();
 
@@ -63,9 +63,7 @@ public class URLMetaExtractor {
     }
 
     public String getPageFavicon() {
-        String url = "http://www.google.com/s2/favicons?domain=" + this.url;
-
-        return url;
+        return "http://www.google.com/s2/favicons?domain=" + url;
     }
 
 }
