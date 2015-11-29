@@ -11,7 +11,7 @@
     <packaging>pom</packaging>
 
     <properties>
-        <jdom.version>2.0.2</jdom.version>
+        <jdom.version>2.0.6</jdom.version>
 
         <swt-linux86.version>4.3</swt-linux86.version>
         <swt-linux86_64.version>4.3</swt-linux86_64.version>
@@ -23,7 +23,7 @@
     <dependencies>
         <dependency>
             <groupId>org.jdom</groupId>
-            <artifactId>jdom</artifactId>
+            <artifactId>jdom2</artifactId>
             <version>${jdom.version}</version>
         </dependency>
     </dependencies>
