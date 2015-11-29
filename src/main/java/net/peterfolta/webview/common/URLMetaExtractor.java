@@ -24,20 +24,20 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class URLMetaExtractor {
-	
-	private String url;
-	
-	public URLMetaExtractor(String url) {
-		this.url = url;
-	}
-	
-	public String getPageTitle() throws IOException, IllegalArgumentException {
-		Pattern TITLE_TAG = Pattern.compile("\\<title>(.*)\\</title>", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
-		
-		URL url = new URL(this.url);
-		URLConnection conn = url.openConnection();
-		
-		InputStream in = conn.getInputStream();
+
+    private String url;
+
+    public URLMetaExtractor(String url) {
+        this.url = url;
+    }
+
+    public String getPageTitle() throws IOException, IllegalArgumentException {
+        Pattern TITLE_TAG = Pattern.compile("\\<title>(.*)\\</title>", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+
+        URL url = new URL(this.url);
+        URLConnection conn = url.openConnection();
+
+        InputStream in = conn.getInputStream();
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
         int n = 0, totalRead = 0;
         char[] buf = new char[1024];
@@ -58,14 +58,14 @@ public class URLMetaExtractor {
              * as HTML brackets with a space */
             return matcher.group(1).replaceAll("[\\s\\<>]+", " ").trim();
         }
-        
+
         return null;
-	}
-	
-	public String getPageFavicon() {
-		String url = "http://www.google.com/s2/favicons?domain=" + this.url;
-		
-		return url;
-	}
-	
+    }
+
+    public String getPageFavicon() {
+        String url = "http://www.google.com/s2/favicons?domain=" + this.url;
+
+        return url;
+    }
+
 }

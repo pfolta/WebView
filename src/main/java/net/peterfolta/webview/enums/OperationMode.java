@@ -15,8 +15,6 @@
 package net.peterfolta.webview.enums;
 
 public enum OperationMode {
-	
-	APPLICATION_MODE,
-	SETUP_MODE
-	
+    APPLICATION_MODE,
+    SETUP_MODE
 }

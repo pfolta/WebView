@@ -27,44 +27,43 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
 public class BrowserWindow {
-	
-	private Shell browserShell;
-	private Browser browser;
-	
-	public BrowserWindow(Display display) {
-		browserShell = new Shell(display, SWT.TITLE | SWT.MIN | SWT.RESIZE | SWT.MAX | SWT.CLOSE);
-		
-		browserShell.addShellListener(new ShellListener() {
-			public void shellActivated(ShellEvent event) {
-			}
 
-			public void shellClosed(ShellEvent event) {
-				Main.exit(0);
-			}
+    private Shell browserShell;
+    private Browser browser;
 
-			public void shellDeactivated(ShellEvent event) {
-			}
+    public BrowserWindow(Display display) {
+        browserShell = new Shell(display, SWT.TITLE | SWT.MIN | SWT.RESIZE | SWT.MAX | SWT.CLOSE);
 
-			public void shellDeiconified(ShellEvent event) {
-			}
+        browserShell.addShellListener(new ShellListener() {
+            public void shellActivated(ShellEvent event) {
+            }
 
-			public void shellIconified(ShellEvent event) {
-			}
-		});
-		
-		browserShell.setLayout(new FillLayout());
-		
-		browser = new Browser(browserShell, SWT.MOZILLA);
-		browser.setUrl("http://maps.google.com");
-		browser.addTitleListener(new TitleListener() {
-			@Override
-			public void changed(TitleEvent event) {
-				browserShell.setText(event.title);
-			}
-		});
+            public void shellClosed(ShellEvent event) {
+                Main.exit(0);
+            }
 
-		browserShell.setSize(1440, 900);
-		browserShell.open();
-	}
-	
+            public void shellDeactivated(ShellEvent event) {
+            }
+
+            public void shellDeiconified(ShellEvent event) {
+            }
+
+            public void shellIconified(ShellEvent event) {
+            }
+        });
+
+        browserShell.setLayout(new FillLayout());
+
+        browser = new Browser(browserShell, SWT.MOZILLA);
+        browser.setUrl("http://maps.google.com");
+        browser.addTitleListener(new TitleListener() {
+            public void changed(TitleEvent event) {
+                browserShell.setText(event.title);
+            }
+        });
+
+        browserShell.setSize(1440, 900);
+        browserShell.open();
+    }
+
 }

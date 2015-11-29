@@ -16,13 +16,12 @@ package net.peterfolta.webview.main;
 
 import net.peterfolta.webview.enums.OperationMode;
 import net.peterfolta.webview.gui.GUI;
-import net.peterfolta.webview.wvapp.WVApp;
 
 public class Main {
-	
-	private static GUI gui;
-	
-	public static void main(String[] args) {
+
+    private static GUI gui;
+
+    public static void main(String[] args) {
 //		if (args.length == 0) {
 //			gui = new GUI(OperationMode.SETUP_MODE);
 //		} else {
@@ -34,22 +33,23 @@ public class Main {
 //			System.setProperty("org.eclipse.swt.browser.XULRunnerPath", System.getProperty("user.dir") + System.getProperty("file.separator") + "browser");
 //			System.setProperty("org.eclipse.swt.browser.MOZ_PROFILE_PATH", System.getProperty("user.dir") + System.getProperty("file.separator") + "profile");
 //		}
-		
-		gui = new GUI(OperationMode.APPLICATION_MODE);
-		
-		System.setProperty("org.eclipse.swt.browser.XULRunnerPath", System.getProperty("user.dir") + System.getProperty("file.separator") + "browser");
-		System.setProperty("org.eclipse.swt.browser.MOZ_PROFILE_PATH", System.getProperty("user.dir") + System.getProperty("file.separator") + "profile");
-		
-		gui.start();
-	}
-	
-	public static void exit(int status) {
-		try {
-			gui.die();
-		} catch(Exception exception) {
-		}
-		
-		System.exit(status);
-	}
-	
+
+        gui = new GUI(OperationMode.APPLICATION_MODE);
+
+        System.setProperty("org.eclipse.swt.browser.XULRunnerPath", System.getProperty("user.dir") + System.getProperty("file.separator") + "browser");
+        System.setProperty("org.eclipse.swt.browser.MOZ_PROFILE_PATH", System.getProperty("user.dir") + System.getProperty("file.separator") + "profile");
+
+        gui.start();
+    }
+
+    public static void exit(int status) {
+        try {
+            gui.die();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+
+        System.exit(status);
+    }
+
 }
