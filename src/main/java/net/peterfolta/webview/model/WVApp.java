@@ -11,12 +11,16 @@
  * Author:          Peter Folta <mail@peterfolta.net>
  */
 
-package net.peterfolta.webview.wvapp;
+package net.peterfolta.webview.model;
 
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Display;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
 
+import javax.xml.bind.DatatypeConverter;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 
 public class WVApp {
@@ -29,32 +33,14 @@ public class WVApp {
 
     private String name;
     private String id;
-    private String icon;
+    private Image icon;
     private String url;
 
     public WVApp(String fileName) {
         this.fileName = fileName;
         this.file = new File(fileName);
-    }
 
-    public void readFile() {
-        try {
-            SAXBuilder saxBuilder = new SAXBuilder();
-            xmlDocument = saxBuilder.build(file);
-
-            rootElement = xmlDocument.getRootElement();
-
-            setName(rootElement.getChild("name").getText());
-            setId(rootElement.getChild("id").getText());
-            setIcon(rootElement.getChild("icon").getText());
-            setUrl(rootElement.getChild("url").getText());
-        } catch (Exception exception) {
-            exception.printStackTrace();
-        }
-    }
-
-    public void writeFile() {
-
+        read();
     }
 
     public String getName() {
@@ -73,11 +59,11 @@ public class WVApp {
         this.id = id;
     }
 
-    public String getIcon() {
+    public Image getIcon() {
         return icon;
     }
 
-    public void setIcon(String icon) {
+    public void setIcon(Image icon) {
         this.icon = icon;
     }
 
@@ -89,5 +75,31 @@ public class WVApp {
         this.url = url;
     }
 
+    private void read() {
+        try {
+            SAXBuilder saxBuilder = new SAXBuilder();
+            xmlDocument = saxBuilder.build(file);
+
+            rootElement = xmlDocument.getRootElement();
+
+            setName(rootElement.getChild("name").getText());
+            setId(rootElement.getChild("id").getText());
+
+            setIcon(createImageFromBase64(rootElement.getChild("icon").getText()));
+
+            setUrl(rootElement.getChild("url").getText());
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    private Image createImageFromBase64(String base64) {
+        try {
+            byte[] base64Decoded = DatatypeConverter.parseBase64Binary(base64);
+            return new Image(Display.getCurrent(), new ByteArrayInputStream(base64Decoded));
+        } catch (Exception exception) {
+            return null;
+        }
+    }
 
 }

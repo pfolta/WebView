@@ -11,7 +11,7 @@
  * Author:          Peter Folta <mail@peterfolta.net>
  */
 
-package net.peterfolta.webview.gui.common;
+package net.peterfolta.webview.view.common;
 
 import org.eclipse.swt.widgets.Shell;
 

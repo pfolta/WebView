@@ -13,41 +13,12 @@
 
 package net.peterfolta.webview.main;
 
-import net.peterfolta.webview.enums.OperationMode;
-import net.peterfolta.webview.gui.GUI;
-
 public class Main {
 
-    private static GUI gui;
-
     public static void main(String[] args) {
-//		if (args.length == 0) {
-//			gui = new GUI(OperationMode.SETUP_MODE);
-//		} else {
-//			gui = new GUI(OperationMode.APPLICATION_MODE);
-//			
-//			WVApp wvapp = new WVApp(args[0]);
-//			wvapp.readFile();
-//		}
-
-        gui = new GUI(OperationMode.APPLICATION_MODE);
-
-        String XULRunnerPath = System.getProperty("user.dir") + System.getProperty("file.separator") + "target" + System.getProperty("file.separator") + "xulrunner";
-
-        System.setProperty("org.eclipse.swt.browser.XULRunnerPath", XULRunnerPath);
-        System.setProperty("org.eclipse.swt.browser.MOZ_PROFILE_PATH", System.getProperty("user.dir") + System.getProperty("file.separator") + "profile");
-
-        gui.start();
-    }
-
-    public static void exit(int status) {
-        try {
-            gui.die();
-        } catch (Exception exception) {
-            exception.printStackTrace();
+        if (args.length > 0) {
+            new WebViewDriver(args[0]);
         }
-
-        System.exit(status);
     }
 
 }

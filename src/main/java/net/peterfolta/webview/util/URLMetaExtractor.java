@@ -11,7 +11,7 @@
  * Author:          Peter Folta <mail@peterfolta.net>
  */
 
-package net.peterfolta.webview.common;
+package net.peterfolta.webview.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;

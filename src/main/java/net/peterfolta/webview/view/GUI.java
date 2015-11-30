@@ -11,7 +11,7 @@
  * Author:          Peter Folta <mail@peterfolta.net>
  */
 
-package net.peterfolta.webview.gui;
+package net.peterfolta.webview.view;
 
 import net.peterfolta.webview.enums.OperationMode;
 
@@ -28,25 +28,6 @@ public class GUI {
         this.opMode = opMode;
 
         this.display = Display.getDefault();
-    }
-
-    public void start() {
-        switch (opMode) {
-            case APPLICATION_MODE:
-                new BrowserWindow(display);
-
-                break;
-            case SETUP_MODE:
-                new ConfiguratorWindow(display);
-
-                break;
-        }
-
-        while (!display.isDisposed()) {
-            if (!display.readAndDispatch()) {
-                display.sleep();
-            }
-        }
     }
 
     public Display getDisplay() {

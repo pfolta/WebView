@@ -11,13 +11,12 @@
  * Author:          Peter Folta <mail@peterfolta.net>
  */
 
-package net.peterfolta.webview.gui;
+package net.peterfolta.webview.view;
 
-import net.peterfolta.webview.common.URLMetaExtractor;
-import net.peterfolta.webview.gui.common.DirectoryDialog;
-import net.peterfolta.webview.gui.common.FileDialog;
-import net.peterfolta.webview.gui.common.MessageBox;
-import net.peterfolta.webview.main.Main;
+import net.peterfolta.webview.util.URLMetaExtractor;
+import net.peterfolta.webview.view.common.DirectoryDialog;
+import net.peterfolta.webview.view.common.FileDialog;
+import net.peterfolta.webview.view.common.MessageBox;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ShellEvent;
 import org.eclipse.swt.events.ShellListener;
@@ -91,7 +90,7 @@ public class ConfiguratorWindow {
             }
 
             public void shellClosed(ShellEvent event) {
-                Main.exit(0);
+                configuratorShell.close();
             }
 
             public void shellDeactivated(ShellEvent event) {
@@ -140,26 +139,20 @@ public class ConfiguratorWindow {
 
         appGroupUrlText = new Text(appGroup, SWT.BORDER);
         appGroupUrlText.setLayoutData(gridData);
-        appGroupUrlText.addListener(SWT.Modify, new Listener() {
-            public void handleEvent(Event event) {
-                urldirty = true;
-            }
-        });
-        appGroupUrlText.addListener(SWT.Deactivate, new Listener() {
-            public void handleEvent(Event event) {
-                if (urldirty) {
-                    urldirty = false;
+        appGroupUrlText.addListener(SWT.Modify, event -> urldirty = true);
+        appGroupUrlText.addListener(SWT.Deactivate, event -> {
+            if (urldirty) {
+                urldirty = false;
 
-                    String url = appGroupUrlText.getText();
-                    URLMetaExtractor ume = new URLMetaExtractor(url);
+                String url = appGroupUrlText.getText();
+                URLMetaExtractor ume = new URLMetaExtractor(url);
 
-                    String title;
-                    try {
-                        title = ume.getPageTitle();
-                        appGroupTitleText.setText(title);
-                    } catch (Exception e) {
-                    } finally {
-                    }
+                String title;
+                try {
+                    title = ume.getPageTitle();
+                    appGroupTitleText.setText(title);
+                } catch (Exception exception) {
+                    exception.printStackTrace();
                 }
             }
         });
@@ -193,18 +186,12 @@ public class ConfiguratorWindow {
 
         final Label icon = new Label(appGroup, SWT.NONE);
         icon.setImage(new Image(display, new ImageLoader().load("resources/icon_information.png")[0]));
-        icon.addListener(SWT.MouseEnter, new Listener() {
-            public void handleEvent(Event event) {
-                Point loc = icon.toDisplay(icon.getSize());
-                tip.setLocation(loc.x - 8, loc.y);
-                tip.setVisible(true);
-            }
+        icon.addListener(SWT.MouseEnter, event -> {
+            Point loc = icon.toDisplay(icon.getSize());
+            tip.setLocation(loc.x - 8, loc.y);
+            tip.setVisible(true);
         });
-        icon.addListener(SWT.MouseExit, new Listener() {
-            public void handleEvent(Event event) {
-                tip.setVisible(false);
-            }
-        });
+        icon.addListener(SWT.MouseExit, event -> tip.setVisible(false));
 
         shortcutGroup = new Group(configuratorShell, SWT.NONE);
         shortcutGroup.setText("Create Shortcuts");
@@ -260,17 +247,15 @@ public class ConfiguratorWindow {
 
         appOptGroupFileBrowseButton = new Button(appOptGroup, SWT.PUSH);
         appOptGroupFileBrowseButton.setText("Browse...");
-        appOptGroupFileBrowseButton.addListener(SWT.Selection, new Listener() {
-            public void handleEvent(Event event) {
-                String[] filterNames = new String[]{"WebView Application File (*.wvapp)", "All Files (*.*)"};
-                String[] filterExtensions = new String[]{"*.wvapp", "*.*"};
+        appOptGroupFileBrowseButton.addListener(SWT.Selection, event -> {
+            String[] filterNames = new String[]{"WebView Application File (*.wvapp)", "All Files (*.*)"};
+            String[] filterExtensions = new String[]{"*.wvapp", "*.*"};
 
-                FileDialog appFileDialog = new FileDialog(configuratorShell, SWT.SAVE, "Save Application File", appOptGroupFileText.getText(), filterNames, filterExtensions, 0);
-                String appFile = appFileDialog.getPath();
+            FileDialog appFileDialog = new FileDialog(configuratorShell, SWT.SAVE, "Save Application File", appOptGroupFileText.getText(), filterNames, filterExtensions, 0);
+            String appFile = appFileDialog.getPath();
 
-                if (appFile != null) {
-                    appOptGroupFileText.setText(appFile);
-                }
+            if (appFile != null) {
+                appOptGroupFileText.setText(appFile);
             }
         });
 
@@ -289,14 +274,12 @@ public class ConfiguratorWindow {
 
         appOptGroupProfileBrowseButton = new Button(appOptGroup, SWT.PUSH);
         appOptGroupProfileBrowseButton.setText("Browse...");
-        appOptGroupProfileBrowseButton.addListener(SWT.Selection, new Listener() {
-            public void handleEvent(Event event) {
-                DirectoryDialog profilePathDialog = new DirectoryDialog(configuratorShell, "Select Profile Path", "Choose or create a new directory to store this web application's profile. It is recommended to select an empty directory.", appOptGroupProfileText.getText());
-                String profilePath = profilePathDialog.getPath();
+        appOptGroupProfileBrowseButton.addListener(SWT.Selection, event -> {
+            DirectoryDialog profilePathDialog = new DirectoryDialog(configuratorShell, "Select Profile Path", "Choose or create a new directory to store this web application's profile. It is recommended to select an empty directory.", appOptGroupProfileText.getText());
+            String profilePath = profilePathDialog.getPath();
 
-                if (profilePath != null) {
-                    appOptGroupProfileText.setText(profilePath);
-                }
+            if (profilePath != null) {
+                appOptGroupProfileText.setText(profilePath);
             }
         });
 
@@ -353,69 +336,65 @@ public class ConfiguratorWindow {
 
         iconCustomFileText = new Text(iconGroup, SWT.BORDER);
         iconCustomFileText.setLayoutData(gridData);
-        iconCustomFileText.addListener(SWT.Activate, new Listener() {
-            public void handleEvent(Event arg0) {
-                iconFaviconButton.setSelection(false);
-                iconCustomButton.setSelection(true);
-            }
+        iconCustomFileText.addListener(SWT.Activate, arg0 -> {
+            iconFaviconButton.setSelection(false);
+            iconCustomButton.setSelection(true);
         });
 
         iconCustomFileBrowseButton = new Button(iconGroup, SWT.PUSH);
         iconCustomFileBrowseButton.setText("Browse...");
-        iconCustomFileBrowseButton.addListener(SWT.Selection, new Listener() {
-            public void handleEvent(Event event) {
-                String[] filterNames = new String[]{
-                        "Graphics Interchange Format (*.gif)",
-                        "JPEG File Interchange Format (*.jpg; *.jpeg; *.jfif; *.jpe)",
-                        "Portable Network Graphics (*.png)",
-                        "Tagged Image File Format (*.tif; *.tiff)",
-                        "Windows Bitmap (*.bmp; *.dib; *.rle)",
-                        "Windows Icon (*.ico)",
-                        "All Image Files (*.gif; *.jpg; *.jpeg; *.jfif; *.jpe; *.png; *.tif; *.tiff; *.bmp; *.dib; *.rle; *.ico)",
-                        "All Files (*.*)"
-                };
-                String[] filterExtensions = new String[]{
-                        "*.gif",
-                        "*.jpg;*.jpeg;*.jfif;*.jpe",
-                        "*.png",
-                        "*.tif;*.tiff",
-                        "*.bmp;*.dib;*.rle",
-                        "*.ico",
-                        "*.gif;*.jpg;*.jpeg;*.jfif;*.jpe;*.png;*.tif;*.tiff;*.bmp;*.dib;*.rle;*.ico",
-                        "*.*"
-                };
+        iconCustomFileBrowseButton.addListener(SWT.Selection, event -> {
+            String[] filterNames = new String[]{
+                    "Graphics Interchange Format (*.gif)",
+                    "JPEG File Interchange Format (*.jpg; *.jpeg; *.jfif; *.jpe)",
+                    "Portable Network Graphics (*.png)",
+                    "Tagged Image File Format (*.tif; *.tiff)",
+                    "Windows Bitmap (*.bmp; *.dib; *.rle)",
+                    "Windows Icon (*.ico)",
+                    "All Image Files (*.gif; *.jpg; *.jpeg; *.jfif; *.jpe; *.png; *.tif; *.tiff; *.bmp; *.dib; *.rle; *.ico)",
+                    "All Files (*.*)"
+            };
+            String[] filterExtensions = new String[]{
+                    "*.gif",
+                    "*.jpg;*.jpeg;*.jfif;*.jpe",
+                    "*.png",
+                    "*.tif;*.tiff",
+                    "*.bmp;*.dib;*.rle",
+                    "*.ico",
+                    "*.gif;*.jpg;*.jpeg;*.jfif;*.jpe;*.png;*.tif;*.tiff;*.bmp;*.dib;*.rle;*.ico",
+                    "*.*"
+            };
 
-                FileDialog iconCustomFileDialog = new FileDialog(configuratorShell, SWT.OPEN, "Open Image", iconCustomFileText.getText(), filterNames, filterExtensions, 6);
-                String iconCustomFile = iconCustomFileDialog.getPath();
+            FileDialog iconCustomFileDialog = new FileDialog(configuratorShell, SWT.OPEN, "Open Image", iconCustomFileText.getText(), filterNames, filterExtensions, 6);
+            String iconCustomFile = iconCustomFileDialog.getPath();
 
-                if (iconCustomFile != null) {
-                    try {
-                        ImageData[] imageData = new ImageLoader().load(iconCustomFile);
-                        int largestIndex = 0;
+            if (iconCustomFile != null) {
+                try {
+                    ImageData[] imageData = new ImageLoader().load(iconCustomFile);
+                    int largestIndex = 0;
 
-                        for (int i = 0; i < imageData.length; i++) {
-                            if (imageData[i].width > imageData[largestIndex].width) {
-                                largestIndex = i;
-                            }
+                    for (int i = 0; i < imageData.length; i++) {
+                        if (imageData[i].width > imageData[largestIndex].width) {
+                            largestIndex = i;
                         }
-
-                        if (imageData[largestIndex].width < 128 || imageData[largestIndex].height < 128) {
-                            iconWarningComposite.setVisible(true);
-                        } else {
-                            iconWarningComposite.setVisible(false);
-                        }
-
-                        Image image = new Image(display, imageData[largestIndex].scaledTo(128, 128));
-
-                        iconPreviewLabel.setImage(image);
-
-                        iconCustomFileText.setText(iconCustomFile);
-
-                        iconFaviconButton.setSelection(false);
-                        iconCustomButton.setSelection(true);
-                    } catch (Exception exception) {
-                        new MessageBox(configuratorShell, exception.getMessage(), "WebView Configurator", SWT.ERROR, SWT.OK);
                     }
+
+                    if (imageData[largestIndex].width < 128 || imageData[largestIndex].height < 128) {
+                        iconWarningComposite.setVisible(true);
+                    } else {
+                        iconWarningComposite.setVisible(false);
+                    }
+
+                    Image image = new Image(display, imageData[largestIndex].scaledTo(128, 128));
+
+                    iconPreviewLabel.setImage(image);
+
+                    iconCustomFileText.setText(iconCustomFile);
+
+                    iconFaviconButton.setSelection(false);
+                    iconCustomButton.setSelection(true);
+                } catch (Exception exception) {
+                    new MessageBox(configuratorShell, exception.getMessage(), "WebView Configurator", SWT.ERROR, SWT.OK);
                 }
             }
         });
@@ -467,11 +446,7 @@ public class ConfiguratorWindow {
 
         ButtonCpsExitButton = new Button(ButtonCps, SWT.PUSH);
         ButtonCpsExitButton.setText("Exit");
-        ButtonCpsExitButton.addListener(SWT.Selection, new Listener() {
-            public void handleEvent(Event event) {
-                Main.exit(0);
-            }
-        });
+        ButtonCpsExitButton.addListener(SWT.Selection, event -> configuratorShell.close());
 
         gridData = new GridData(GridData.FILL_HORIZONTAL);
         ButtonCpsExitButton.setLayoutData(gridData);
@@ -502,11 +477,7 @@ public class ConfiguratorWindow {
 
         exitMenuItem = new MenuItem(fileMenu, SWT.PUSH);
         exitMenuItem.setText("E&xit");
-        exitMenuItem.addListener(SWT.Selection, new Listener() {
-            public void handleEvent(Event event) {
-                Main.exit(0);
-            }
-        });
+        exitMenuItem.addListener(SWT.Selection, event -> configuratorShell.close());
 
         helpMenuItem = new MenuItem(mainMenu, SWT.CASCADE);
         helpMenuItem.setText("&Help");
