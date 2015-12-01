@@ -18,6 +18,11 @@
     </repositories>
 
     <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
         <jdom.version>2.0.6</jdom.version>
 
         <swt-linux86.version>4.5.1</swt-linux86.version>
@@ -122,6 +127,9 @@
                 <version>1.4.0</version>
                 <configuration>
                     <mainClass>net.peterfolta.webview.main.Main</mainClass>
+                    <arguments>
+                        <argument>${project.build.outputDirectory}/examples/googlemaps.wvapp</argument>
+                    </arguments>
                 </configuration>
             </plugin>
 
@@ -136,7 +144,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${basedir}/target/xulrunner</outputDirectory>
+                            <outputDirectory>${project.build.directory}/xulrunner</outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>src/main/xulrunner/${xulrunnerPath}</directory>
