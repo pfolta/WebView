@@ -185,7 +185,7 @@ public class ConfiguratorWindow {
         tip.setMessage("Use the web application's dynamic page title as the window title.\nOtherwise the title specified above will be used.");
 
         final Label icon = new Label(appGroup, SWT.NONE);
-        icon.setImage(new Image(display, new ImageLoader().load("resources/icon_information.png")[0]));
+        icon.setImage(new Image(display, this.getClass().getResourceAsStream("/icon_information.png")));
         icon.addListener(SWT.MouseEnter, event -> {
             Point loc = icon.toDisplay(icon.getSize());
             tip.setLocation(loc.x - 8, loc.y);
@@ -414,7 +414,7 @@ public class ConfiguratorWindow {
         gridData = new GridData(GridData.VERTICAL_ALIGN_BEGINNING);
 
         iconWarningIconLabel = new Label(iconWarningComposite, SWT.NONE);
-        iconWarningIconLabel.setImage(new Image(display, new ImageLoader().load("resources/icon_information.png")[0]));
+        iconWarningIconLabel.setImage(new Image(display, this.getClass().getResourceAsStream("/icon_information.png")));
         iconWarningIconLabel.setBackground(new Color(display, 255, 255, 225));
         iconWarningIconLabel.setLayoutData(gridData);
 
