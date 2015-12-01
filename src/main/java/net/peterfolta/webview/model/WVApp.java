@@ -25,7 +25,6 @@ import java.io.File;
 
 public class WVApp {
 
-    private String fileName;
     private File file;
 
     private Document xmlDocument;
@@ -37,7 +36,6 @@ public class WVApp {
     private String url;
 
     public WVApp(String fileName) {
-        this.fileName = fileName;
         this.file = new File(fileName);
 
         read();
