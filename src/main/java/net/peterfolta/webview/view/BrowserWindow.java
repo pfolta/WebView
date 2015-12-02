@@ -62,6 +62,9 @@ public class BrowserWindow {
         browser.setUrl(wvApp.getUrl());
         browser.addTitleListener(event -> browserShell.setText(event.title));
 
+        // Open external links inside the application
+        browser.addOpenWindowListener(event -> event.browser = browser);
+
         browserShell.setSize(1440, 900);
     }
 
