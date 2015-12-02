@@ -46,6 +46,13 @@
         <profile>
             <id>linux86</id>
 
+            <activation>
+                <os>
+                    <family>unix</family>
+                    <arch>x86</arch>
+                </os>
+            </activation>
+
             <properties>
                 <xulrunnerPath>xulrunner-24.0.en-US.linux-i686</xulrunnerPath>
             </properties>
@@ -61,6 +68,13 @@
         <profile>
             <id>linux86_64</id>
 
+            <activation>
+                <os>
+                    <family>unix</family>
+                    <arch>amd64</arch>
+                </os>
+            </activation>
+
             <properties>
                 <xulrunnerPath>xulrunner-24.0.en-US.linux-x86_64</xulrunnerPath>
             </properties>
@@ -75,6 +89,13 @@
         </profile>
         <profile>
             <id>macosx64</id>
+
+            <activation>
+                <os>
+                    <family>mac</family>
+                    <arch>x86_64</arch>
+                </os>
+            </activation>
 
             <properties>
                 <swt-jvm.argument>-XstartOnFirstThread</swt-jvm.argument>
@@ -92,6 +113,13 @@
         <profile>
             <id>win32</id>
 
+            <activation>
+                <os>
+                    <family>windows</family>
+                    <arch>x86</arch>
+                </os>
+            </activation>
+
             <properties>
                 <xulrunnerPath>xulrunner-24.0.en-US.win32</xulrunnerPath>
             </properties>
@@ -107,6 +135,13 @@
         </profile>
         <profile>
             <id>win64</id>
+
+            <activation>
+                <os>
+                    <family>windows</family>
+                    <arch>amd64</arch>
+                </os>
+            </activation>
 
             <properties>
                 <xulrunnerPath>xulrunner-24.0.en-US.win64-x86_64</xulrunnerPath>
