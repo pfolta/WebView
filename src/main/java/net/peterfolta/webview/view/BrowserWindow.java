@@ -75,7 +75,7 @@ public class BrowserWindow {
         browser.addKeyListener(new KeyListener() {
             @Override
             public void keyPressed(KeyEvent keyEvent) {
-                if (keyEvent.stateMask == SWT.ALT) {
+                if ((keyEvent.stateMask & SWT.ALT) != 0) {
                     switch (keyEvent.keyCode) {
                         case 0x1000003: {
                             if (browser.isBackEnabled()) {
