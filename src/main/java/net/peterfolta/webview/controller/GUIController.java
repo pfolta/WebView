@@ -16,6 +16,7 @@ package net.peterfolta.webview.controller;
 import net.peterfolta.webview.model.WVApp;
 import net.peterfolta.webview.view.BrowserWindow;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 
 public class GUIController {
 
@@ -29,9 +30,11 @@ public class GUIController {
 
     public void createBrowserWindow(WVApp wvApp) {
         browserWindow = new BrowserWindow(display, wvApp);
-        browserWindow.open();
 
-        while (!display.isDisposed()) {
+        Shell browserShell = browserWindow.getShell();
+        browserShell.open();
+
+        while (!browserShell.isDisposed()) {
             if (!display.readAndDispatch()) {
                 display.sleep();
             }

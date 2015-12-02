@@ -18,8 +18,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
-import org.eclipse.swt.events.ShellEvent;
-import org.eclipse.swt.events.ShellListener;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -39,24 +37,6 @@ public class BrowserWindow {
         browserShell = new Shell(display, SWT.TITLE | SWT.MIN | SWT.RESIZE | SWT.MAX | SWT.CLOSE);
         browserShell.setText(wvApp.getTitle());
         browserShell.setImage(wvApp.getIcon());
-
-        browserShell.addShellListener(new ShellListener() {
-            public void shellActivated(ShellEvent event) {
-            }
-
-            public void shellClosed(ShellEvent event) {
-                browserShell.close();
-            }
-
-            public void shellDeactivated(ShellEvent event) {
-            }
-
-            public void shellDeiconified(ShellEvent event) {
-            }
-
-            public void shellIconified(ShellEvent event) {
-            }
-        });
 
         browserShell.setLayout(new FillLayout());
 
@@ -103,8 +83,8 @@ public class BrowserWindow {
         browserShell.setSize(1440, 900);
     }
 
-    public void open() {
-        browserShell.open();
+    public Shell getShell() {
+        return browserShell;
     }
 
 }
