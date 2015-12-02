@@ -16,6 +16,8 @@ package net.peterfolta.webview.view;
 import net.peterfolta.webview.model.WVApp;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.ShellEvent;
 import org.eclipse.swt.events.ShellListener;
 import org.eclipse.swt.layout.FillLayout;
@@ -64,6 +66,39 @@ public class BrowserWindow {
 
         // Open external links inside the application
         browser.addOpenWindowListener(event -> event.browser = browser);
+
+        /*
+         * Support for Keyboard Navigation
+         * Back:    ALT + Arrow Left
+         * Forward: ALT + Arrow Right
+         */
+        browser.addKeyListener(new KeyListener() {
+            @Override
+            public void keyPressed(KeyEvent keyEvent) {
+                if (keyEvent.stateMask == SWT.ALT) {
+                    switch (keyEvent.keyCode) {
+                        case 0x1000003: {
+                            if (browser.isBackEnabled()) {
+                                browser.back();
+                            }
+
+                            break;
+                        }
+                        case 0x1000004: {
+                            if (browser.isForwardEnabled()) {
+                                browser.forward();
+                            }
+
+                            break;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent keyEvent) {
+            }
+        });
 
         browserShell.setSize(1440, 900);
     }
