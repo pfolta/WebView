@@ -35,6 +35,7 @@ public class BrowserWindow {
         this.wvApp = wvApp;
 
         browserShell = new Shell(display, SWT.TITLE | SWT.MIN | SWT.RESIZE | SWT.MAX | SWT.CLOSE);
+        browserShell.setText(wvApp.getTitle());
         browserShell.setImage(wvApp.getIcon());
 
         browserShell.addShellListener(new ShellListener() {
