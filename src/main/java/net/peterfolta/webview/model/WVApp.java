@@ -30,8 +30,7 @@ public class WVApp {
     private Document xmlDocument;
     private Element rootElement;
 
-    private String name;
-    private String id;
+    private String title;
     private Image icon;
     private String url;
 
@@ -41,20 +40,12 @@ public class WVApp {
         read();
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Image getIcon() {
@@ -80,8 +71,7 @@ public class WVApp {
 
             rootElement = xmlDocument.getRootElement();
 
-            setName(rootElement.getChild("name").getText());
-            setId(rootElement.getChild("id").getText());
+            setTitle(rootElement.getChild("title").getText());
 
             setIcon(createImageFromBase64(rootElement.getChild("icon").getText()));
 
