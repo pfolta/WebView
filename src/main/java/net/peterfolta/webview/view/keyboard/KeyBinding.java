@@ -18,6 +18,7 @@ import org.eclipse.swt.SWT;
 
 public final class KeyBinding {
 
+    // Prevent instantiation
     private KeyBinding() {
     }
 

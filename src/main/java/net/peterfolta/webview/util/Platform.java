@@ -15,6 +15,7 @@ package net.peterfolta.webview.util;
 
 public final class Platform {
 
+    // Prevent instantiation
     private Platform() {
     }
 
