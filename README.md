@@ -1,2 +1,2 @@
 # WebView
-A desktop-like web browsing experience
+A desktop client for web applications
