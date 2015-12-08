@@ -15,24 +15,25 @@ package net.peterfolta.webview.model.wvapp;
 
 public class Window {
 
-    private int x;
-    private int y;
-    private int width;
-    private int height;
+    private final int x;
+    private final int y;
+    private final int width;
+    private final int height;
 
-    private boolean resizable;
-    private boolean maximizable;
+    private final boolean resizable;
+    private final boolean maximizable;
 
-    private boolean maximized;
+    private final boolean maximized;
 
     public static class Builder {
+
         private int x = 0;
         private int y = 0;
         private int width = 0;
         private int height = 0;
 
-        private boolean resizable = false;
-        private boolean maximizable = false;
+        private boolean resizable = true;
+        private boolean maximizable = true;
 
         private boolean maximized = false;
 
@@ -74,6 +75,7 @@ public class Window {
         public Window build() {
             return new Window(this);
         }
+
     }
 
     private Window(Builder builder) {
