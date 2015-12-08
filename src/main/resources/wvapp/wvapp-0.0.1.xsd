@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema version="0.0.1" attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="wvapp">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="title">
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="xs:string">
+                                <xs:attribute type="xs:boolean" name="usePageTitle"/>
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element type="xs:string" name="url"/>
+                <xs:element type="xs:string" name="icon"/>
+                <xs:element name="browser">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element type="xs:string" name="javascriptEnabled"/>
+                            <xs:element type="xs:string" name="openExternalLinks"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="keyboard">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element type="xs:boolean" name="backEnabled"/>
+                            <xs:element type="xs:boolean" name="forwardEnabled"/>
+                            <xs:element type="xs:boolean" name="homeEnabled"/>
+                            <xs:element type="xs:boolean" name="refreshEnabled"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="window">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element type="xs:int" name="x"/>
+                            <xs:element type="xs:int" name="y"/>
+                            <xs:element type="xs:int" name="width"/>
+                            <xs:element type="xs:int" name="height"/>
+                            <xs:element type="xs:boolean" name="resizable"/>
+                            <xs:element type="xs:boolean" name="maximizable"/>
+                            <xs:element type="xs:boolean" name="maximized"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="version" fixed="0.0.1"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
