@@ -25,7 +25,7 @@ public class Window {
 
     private final boolean maximized;
 
-    public static class Builder {
+    public static class Builder implements net.peterfolta.webview.util.Builder<Window> {
 
         private int x = 0;
         private int y = 0;
