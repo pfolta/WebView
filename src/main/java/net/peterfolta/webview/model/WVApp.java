@@ -13,6 +13,7 @@
 
 package net.peterfolta.webview.model;
 
+import net.peterfolta.webview.model.wvapp.Window;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
 import org.jdom2.Document;
@@ -33,6 +34,8 @@ public class WVApp {
     private String title;
     private Image icon;
     private String url;
+
+    private Window window;
 
     public WVApp(String fileName) {
         this.file = new File(fileName);
@@ -88,6 +91,14 @@ public class WVApp {
         } catch (Exception exception) {
             return null;
         }
+    }
+
+    public Window getWindow() {
+        return window;
+    }
+
+    public void setWindow(Window window) {
+        this.window = window;
     }
 
 }
