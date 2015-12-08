@@ -69,4 +69,21 @@ public class KeyBindingTest {
         assertTrue(KeyBinding.matchesHomeBinding(stateMask, keyCode));
     }
 
+    @Test
+    public void whenF5OrCommandROnMacIsPressedItShouldReturnTrue() {
+        int stateMask = 0;
+        int keyCode   = 0;
+
+        if (Platform.isWindows() || Platform.isLinux()) {
+            keyCode   = SWT.F5;
+        }
+
+        if (Platform.isMac()) {
+            stateMask = SWT.COMMAND;
+            keyCode   = 'R';
+        }
+
+        assertTrue(KeyBinding.matchesRefreshBinding(stateMask, keyCode));
+    }
+
 }

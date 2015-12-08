@@ -100,4 +100,31 @@ public final class KeyBinding {
         return ((requiredStateMask + requiredKeyCode) == (givenStateMask + givenKeyCode));
     }
 
+    /**
+     * Checks whether a given key combination matches the "Refresh" event.
+     *
+     * On Windows and Linux:                    F5
+     * On Mac:                                  COMMAND + R
+     *
+     * @param   givenStateMask                  The Key Combination Modifier
+     * @param   givenKeyCode                    The Key Combination Code
+     * @return                                  true if matches, false otherwise
+     * @see     org.eclipse.swt.events.KeyEvent
+     */
+    public static boolean matchesRefreshBinding(int givenStateMask, int givenKeyCode) {
+        int requiredStateMask = 0;
+        int requiredKeyCode   = 0;
+
+        if (Platform.isWindows() || Platform.isLinux()) {
+            requiredKeyCode   = SWT.F5;
+        }
+
+        if (Platform.isMac()) {
+            requiredStateMask = SWT.COMMAND;
+            requiredKeyCode   = 'R';
+        }
+
+        return ((requiredStateMask + requiredKeyCode) == (givenStateMask + givenKeyCode));
+    }
+
 }

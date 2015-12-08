@@ -33,6 +33,7 @@ public class BrowserControlListener implements KeyListener {
         handleGoBack(keyEvent);
         handleGoForward(keyEvent);
         handleGoHome(keyEvent);
+        handleRefresh(keyEvent);
     }
 
     @Override
@@ -58,6 +59,12 @@ public class BrowserControlListener implements KeyListener {
     private void handleGoHome(KeyEvent keyEvent) {
         if (KeyBinding.matchesHomeBinding(keyEvent.stateMask, keyEvent.keyCode)) {
             browser.setUrl(wvApp.getUrl());
+        }
+    }
+
+    private void handleRefresh(KeyEvent keyEvent) {
+        if (KeyBinding.matchesRefreshBinding(keyEvent.stateMask, keyEvent.keyCode)) {
+            browser.refresh();
         }
     }
 
