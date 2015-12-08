@@ -15,8 +15,9 @@ package net.peterfolta.webview.util;
 
 public final class Platform {
 
-    // Prevent instantiation
+    // Suppress default constructor for noninstantiability
     private Platform() {
+        throw new AssertionError();
     }
 
     public static boolean isMac() {
