@@ -13,10 +13,11 @@
 
 package net.peterfolta.webview.view;
 
-import net.peterfolta.webview.model.WVApp;
+import net.peterfolta.webview.model.wvapp.Browser;
+import net.peterfolta.webview.model.wvapp.WVApp;
+import net.peterfolta.webview.model.wvapp.Window;
 import net.peterfolta.webview.view.keyboard.BrowserControlListener;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -24,31 +25,61 @@ import org.eclipse.swt.widgets.Shell;
 public class BrowserWindow {
 
     private Display display;
+
     private WVApp wvApp;
+    private Browser browser;
+    private Window window;
 
     private Shell browserShell;
-    private Browser browser;
+    private org.eclipse.swt.browser.Browser browserComponent;
 
     public BrowserWindow(Display display, WVApp wvApp) {
-        this.display = display;
-        this.wvApp = wvApp;
+        this.display    = display;
+        this.wvApp      = wvApp;
+        this.browser    = this.wvApp.getBrowser();
+        this.window     = this.wvApp.getWindow();
 
-        browserShell = new Shell(display, SWT.TITLE | SWT.MIN | SWT.RESIZE | SWT.MAX | SWT.CLOSE);
+        int browserShellModifiers = SWT.TITLE | SWT.CLOSE;
+
+        if (window.isResizable()) {
+            browserShellModifiers |= SWT.RESIZE;
+        }
+
+        if (window.isMinimizable()) {
+            browserShellModifiers |= SWT.MIN;
+        }
+
+        if (window.isMaximizable()) {
+            browserShellModifiers |= SWT.MAX;
+        }
+
+        browserShell = new Shell(this.display, browserShellModifiers);
+
+        browserShell.setLocation(window.getX(), window.getY());
+        browserShell.setSize(window.getWidth(), window.getHeight());
+
+        browserShell.setMaximized(window.isMaximized());
 
         browserShell.setText(wvApp.getTitle());
         browserShell.setImage(wvApp.getIcon());
 
         browserShell.setLayout(new FillLayout());
 
-        browser = new Browser(browserShell, SWT.MOZILLA);
-        browser.setUrl(wvApp.getUrl());
-        browser.addTitleListener(event -> browserShell.setText(event.title));
-        browser.addKeyListener(new BrowserControlListener(browser, wvApp));
+        browserComponent = new org.eclipse.swt.browser.Browser(browserShell, SWT.MOZILLA);
+        browserComponent.setUrl(wvApp.getUrl());
 
-        // Open external links inside the application
-        browser.addOpenWindowListener(event -> event.browser = browser);
+        browserComponent.setJavascriptEnabled(browser.isJavascriptEnabled());
 
-        browserShell.setSize(1440, 900);
+        if (wvApp.isUsePageTitle()) {
+            browserComponent.addTitleListener(event -> browserShell.setText(event.title));
+        }
+
+        browserComponent.addKeyListener(new BrowserControlListener(browserComponent, wvApp));
+
+        if (browser.isOpenExternalLinks()) {
+            // Open external links inside the application
+            browserComponent.addOpenWindowListener(event -> event.browser = browserComponent);
+        }
     }
 
     public Shell getShell() {

@@ -13,7 +13,7 @@
 
 package net.peterfolta.webview.controller;
 
-import net.peterfolta.webview.model.WVApp;
+import net.peterfolta.webview.model.wvapp.WVApp;
 import net.peterfolta.webview.view.BrowserWindow;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;

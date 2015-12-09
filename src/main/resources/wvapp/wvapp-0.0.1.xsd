@@ -42,6 +42,7 @@
                             <xs:element type="xs:int" name="width"/>
                             <xs:element type="xs:int" name="height"/>
                             <xs:element type="xs:boolean" name="resizable"/>
+                            <xs:element type="xs:boolean" name="minimizable"/>
                             <xs:element type="xs:boolean" name="maximizable"/>
                             <xs:element type="xs:boolean" name="maximized"/>
                         </xs:sequence>

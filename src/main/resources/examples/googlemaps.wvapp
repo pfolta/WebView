@@ -25,8 +25,9 @@
         <height>900</height>
 
 		<resizable>true</resizable>
+		<minimizable>true</minimizable>
 		<maximizable>true</maximizable>
 	
-		<maximized>true</maximized>
+		<maximized>false</maximized>
 	</window>
 </wvapp>

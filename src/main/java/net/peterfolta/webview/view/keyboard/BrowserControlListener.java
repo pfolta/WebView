@@ -13,7 +13,8 @@
 
 package net.peterfolta.webview.view.keyboard;
 
-import net.peterfolta.webview.model.WVApp;
+import net.peterfolta.webview.model.wvapp.Keyboard;
+import net.peterfolta.webview.model.wvapp.WVApp;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
@@ -21,19 +22,33 @@ import org.eclipse.swt.events.KeyListener;
 public class BrowserControlListener implements KeyListener {
 
     private Browser browser;
+
     private WVApp wvApp;
+    private Keyboard keyboard;
 
     public BrowserControlListener(Browser browser, WVApp wvApp) {
-        this.browser = browser;
-        this.wvApp = wvApp;
+        this.browser    = browser;
+        this.wvApp      = wvApp;
+        this.keyboard   = wvApp.getKeyboard();
     }
 
     @Override
     public void keyPressed(KeyEvent keyEvent) {
-        handleGoBack(keyEvent);
-        handleGoForward(keyEvent);
-        handleGoHome(keyEvent);
-        handleRefresh(keyEvent);
+        if (keyboard.isBackEnabled()) {
+            handleGoBack(keyEvent);
+        }
+
+        if (keyboard.isForwardEnabled()) {
+            handleGoForward(keyEvent);
+        }
+
+        if (keyboard.isHomeEnabled()) {
+            handleGoHome(keyEvent);
+        }
+
+        if (keyboard.isRefreshEnabled()) {
+            handleRefresh(keyEvent);
+        }
     }
 
     @Override

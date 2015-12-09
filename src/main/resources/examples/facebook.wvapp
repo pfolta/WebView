@@ -19,12 +19,13 @@
     </keyboard>
 
     <window>
-        <x>500</x>
-        <y>200</y>
-        <width>1440</width>
-        <height>900</height>
+        <x>0</x>
+        <y>0</y>
+        <width>1024</width>
+        <height>768</height>
 
         <resizable>true</resizable>
+        <minimizable>false</minimizable>
         <maximizable>true</maximizable>
 
         <maximized>true</maximized>
