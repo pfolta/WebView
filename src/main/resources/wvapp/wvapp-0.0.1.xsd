@@ -14,13 +14,13 @@
                         </xs:simpleContent>
                     </xs:complexType>
                 </xs:element>
-                <xs:element type="xs:string" name="url"/>
+                <xs:element type="xs:anyURI" name="url"/>
                 <xs:element type="xs:string" name="icon"/>
                 <xs:element name="browser">
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element type="xs:string" name="javascriptEnabled"/>
-                            <xs:element type="xs:string" name="openExternalLinks"/>
+                            <xs:element type="xs:boolean" name="javascriptEnabled"/>
+                            <xs:element type="xs:boolean" name="openExternalLinks"/>
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
