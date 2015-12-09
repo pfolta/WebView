@@ -18,8 +18,9 @@ import org.eclipse.swt.SWT;
 
 public final class KeyBinding {
 
-    // Prevent instantiation
+    // Suppress default constructor for noninstantiability
     private KeyBinding() {
+        throw new AssertionError();
     }
 
     /**
