@@ -15,7 +15,7 @@
                     </xs:complexType>
                 </xs:element>
                 <xs:element type="xs:anyURI" name="url"/>
-                <xs:element type="xs:string" name="profileID"/>
+                <xs:element type="xs:string" name="profileId"/>
                 <xs:element type="xs:string" name="icon"/>
                 <xs:element name="browser">
                     <xs:complexType>
