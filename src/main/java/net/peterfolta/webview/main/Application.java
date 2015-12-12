@@ -64,4 +64,24 @@ public final class Application {
         return applicationProperties.getProperty("application.version");
     }
 
+    public String getCopyright() {
+        return applicationProperties.getProperty("application.copyright");
+    }
+
+    public String getCompanyName() {
+        return applicationProperties.getProperty("application.companyName");
+    }
+
+    public String getBuildPlatform() {
+        return applicationProperties.getProperty("build.platform");
+    }
+
+    public String getBuildOsName() {
+        return applicationProperties.getProperty("build.osName");
+    }
+
+    public String getBuildArch() {
+        return applicationProperties.getProperty("build.arch");
+    }
+
 }
