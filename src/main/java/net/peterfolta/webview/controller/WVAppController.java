@@ -47,37 +47,38 @@ public class WVAppController {
             e.printStackTrace();
         }
 
-        Element rootElement         = xmlDocument.getRootElement();
+        Element rootElement = xmlDocument.getRootElement();
 
-        Element browserElement      = rootElement.getChild("browser");
-        boolean javascriptEnabled   = Boolean.valueOf(browserElement.getChild("javascriptEnabled").getValue());
-        boolean openExternalLinks   = Boolean.valueOf(browserElement.getChild("openExternalLinks").getValue());
-        Browser browser             = new Browser.Builder().javascriptEnabled(javascriptEnabled).openExternalLinks(openExternalLinks).build();
+        Element browserElement = rootElement.getChild("browser");
+        boolean javascriptEnabled = Boolean.valueOf(browserElement.getChild("javascriptEnabled").getValue());
+        boolean openExternalLinks = Boolean.valueOf(browserElement.getChild("openExternalLinks").getValue());
+        Browser browser = new Browser.Builder().javascriptEnabled(javascriptEnabled).openExternalLinks(openExternalLinks).build();
 
-        Element keyboardElement     = rootElement.getChild("keyboard");
-        boolean backEnabled         = Boolean.valueOf(keyboardElement.getChild("backEnabled").getValue());
-        boolean forwardEnabled      = Boolean.valueOf(keyboardElement.getChild("forwardEnabled").getValue());
-        boolean homeEnabled         = Boolean.valueOf(keyboardElement.getChild("homeEnabled").getValue());
-        boolean refreshEnabled      = Boolean.valueOf(keyboardElement.getChild("refreshEnabled").getValue());
-        Keyboard keyboard           = new Keyboard.Builder().backEnabled(backEnabled).forwardEnabled(forwardEnabled).homeEnabled(homeEnabled).refreshEnabled(refreshEnabled).build();
+        Element keyboardElement = rootElement.getChild("keyboard");
+        boolean backEnabled = Boolean.valueOf(keyboardElement.getChild("backEnabled").getValue());
+        boolean forwardEnabled = Boolean.valueOf(keyboardElement.getChild("forwardEnabled").getValue());
+        boolean homeEnabled = Boolean.valueOf(keyboardElement.getChild("homeEnabled").getValue());
+        boolean refreshEnabled = Boolean.valueOf(keyboardElement.getChild("refreshEnabled").getValue());
+        Keyboard keyboard = new Keyboard.Builder().backEnabled(backEnabled).forwardEnabled(forwardEnabled).homeEnabled(homeEnabled).refreshEnabled(refreshEnabled).build();
 
-        Element windowElement       = rootElement.getChild("window");
-        int x                       = Integer.valueOf(windowElement.getChild("x").getValue());
-        int y                       = Integer.valueOf(windowElement.getChild("y").getValue());
-        int width                   = Integer.valueOf(windowElement.getChild("width").getValue());
-        int height                  = Integer.valueOf(windowElement.getChild("height").getValue());
-        boolean resizable           = Boolean.valueOf(windowElement.getChild("resizable").getValue());
-        boolean minimizable         = Boolean.valueOf(windowElement.getChild("minimizable").getValue());
-        boolean maximizable         = Boolean.valueOf(windowElement.getChild("maximizable").getValue());
-        boolean maximized           = Boolean.valueOf(windowElement.getChild("maximized").getValue());
-        Window window               = new Window.Builder().x(x).y(y).width(width).height(height).resizable(resizable).minimizable(minimizable).maximizable(maximizable).maximized(maximized).build();
+        Element windowElement = rootElement.getChild("window");
+        int x = Integer.valueOf(windowElement.getChild("x").getValue());
+        int y = Integer.valueOf(windowElement.getChild("y").getValue());
+        int width = Integer.valueOf(windowElement.getChild("width").getValue());
+        int height = Integer.valueOf(windowElement.getChild("height").getValue());
+        boolean resizable = Boolean.valueOf(windowElement.getChild("resizable").getValue());
+        boolean minimizable = Boolean.valueOf(windowElement.getChild("minimizable").getValue());
+        boolean maximizable = Boolean.valueOf(windowElement.getChild("maximizable").getValue());
+        boolean maximized = Boolean.valueOf(windowElement.getChild("maximized").getValue());
+        Window window = new Window.Builder().x(x).y(y).width(width).height(height).resizable(resizable).minimizable(minimizable).maximizable(maximizable).maximized(maximized).build();
 
-        String title                = rootElement.getChild("title").getValue();
-        boolean usePageTitle        = Boolean.valueOf(rootElement.getChild("title").getAttribute("usePageTitle").getValue());
-        String url                  = rootElement.getChild("url").getValue();
-        Image icon                  = ImageTools.createImageFromBase64(rootElement.getChild("icon").getText());
+        String title = rootElement.getChild("title").getValue();
+        boolean usePageTitle = Boolean.valueOf(rootElement.getChild("title").getAttribute("usePageTitle").getValue());
+        String url = rootElement.getChild("url").getValue();
+        String profileId = rootElement.getChild("profileId").getValue();
+        Image icon = ImageTools.createImageFromBase64(rootElement.getChild("icon").getText());
 
-        wvApp                       = new WVApp.Builder().title(title).usePageTitle(usePageTitle).url(url).icon(icon).browser(browser).keyboard(keyboard).window(window).build();
+        wvApp = new WVApp.Builder().title(title).usePageTitle(usePageTitle).url(url).profileId(profileId).icon(icon).browser(browser).keyboard(keyboard).window(window).build();
     }
 
     public WVApp getWvApp() {

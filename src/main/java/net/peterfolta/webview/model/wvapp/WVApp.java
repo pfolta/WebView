@@ -13,12 +13,15 @@
 
 package net.peterfolta.webview.model.wvapp;
 
+import net.peterfolta.webview.xulrunner.XULConfigurator;
 import org.eclipse.swt.graphics.Image;
 
 public class WVApp {
 
     private String title;
     private boolean usePageTitle;
+
+    private String profileId;
 
     private String url;
 
@@ -31,6 +34,8 @@ public class WVApp {
     public static class Builder implements net.peterfolta.webview.util.Builder<WVApp> {
         private String title;
         private boolean usePageTitle = true;
+
+        private String profileId;
 
         private String url;
 
@@ -52,6 +57,11 @@ public class WVApp {
 
         public Builder url(String url) {
             this.url = url;
+            return this;
+        }
+
+        public Builder profileId(String profileID) {
+            this.profileId = profileID;
             return this;
         }
 
@@ -84,6 +94,8 @@ public class WVApp {
         setTitle(builder.title);
         setUsePageTitle(builder.usePageTitle);
 
+        setProfileId(builder.profileId);
+
         setUrl(builder.url);
 
         setIcon(builder.icon);
@@ -115,6 +127,19 @@ public class WVApp {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getProfileId() {
+        return profileId;
+    }
+
+    public void setProfileId(String profileId) {
+        if (profileId == null) {
+            throw new NullPointerException();
+        }
+
+        this.profileId = profileId;
+        XULConfigurator.setMozillaProfilePath(profileId);
     }
 
     public Image getIcon() {
