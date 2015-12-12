@@ -21,6 +21,9 @@
     </repositories>
 
     <properties>
+        <project.copyright>2014-2015 Peter Folta. All rights reserved.</project.copyright>
+        <project.companyName>Peter Folta</project.companyName>
+
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
 
@@ -55,16 +58,10 @@
 
     <profiles>
         <profile>
-            <id>linux86</id>
-
-            <activation>
-                <os>
-                    <family>unix</family>
-                    <arch>x86</arch>
-                </os>
-            </activation>
+            <id>linux-x86</id>
 
             <properties>
+                <project.platform>linux-x86</project.platform>
                 <xulrunnerPath>xulrunner-24.0.en-US.linux-i686</xulrunnerPath>
             </properties>
 
@@ -77,16 +74,10 @@
             </dependencies>
         </profile>
         <profile>
-            <id>linux86_64</id>
-
-            <activation>
-                <os>
-                    <family>unix</family>
-                    <arch>amd64</arch>
-                </os>
-            </activation>
+            <id>linux-x86_64</id>
 
             <properties>
+                <project.platform>linux-x86_64</project.platform>
                 <xulrunnerPath>xulrunner-24.0.en-US.linux-x86_64</xulrunnerPath>
             </properties>
 
@@ -99,16 +90,10 @@
             </dependencies>
         </profile>
         <profile>
-            <id>macosx64</id>
-
-            <activation>
-                <os>
-                    <family>mac</family>
-                    <arch>x86_64</arch>
-                </os>
-            </activation>
+            <id>mac-x86_64</id>
 
             <properties>
+                <project.platform>mac-x86_64</project.platform>
                 <swt-jvm.argument>-XstartOnFirstThread</swt-jvm.argument>
                 <xulrunnerPath>xulrunner-24.0.en-US.mac-x86_64</xulrunnerPath>
             </properties>
@@ -124,14 +109,8 @@
         <profile>
             <id>win32</id>
 
-            <activation>
-                <os>
-                    <family>windows</family>
-                    <arch>x86</arch>
-                </os>
-            </activation>
-
             <properties>
+                <project.platform>win32</project.platform>
                 <xulrunnerPath>xulrunner-24.0.en-US.win32</xulrunnerPath>
             </properties>
 
@@ -142,18 +121,59 @@
                     <version>${swt-win32.version}</version>
                 </dependency>
             </dependencies>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.akathist.maven.plugins.launch4j</groupId>
+                        <artifactId>launch4j-maven-plugin</artifactId>
+                        <version>1.7.8</version>
+                        <executions>
+                            <execution>
+                                <id>win32-executable</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>launch4j</goal>
+                                </goals>
+                                <configuration>
+                                    <headerType>gui</headerType>
+                                    <jar>
+                                        ${project.build.directory}/${project.artifactId}-${project.version}.${project.packaging}
+                                    </jar>
+                                    <outfile>
+                                        ${project.build.directory}/deploy/${project.artifactId}-${project.version}-${project.platform}/${project.artifactId}.exe
+                                    </outfile>
+                                    <downloadUrl>http://java.com/download</downloadUrl>
+                                    <stayAlive>true</stayAlive>
+                                    <jre>
+                                        <minVersion>1.8.0</minVersion>
+                                        <jdkPreference>preferJre</jdkPreference>
+                                        <runtimeBits>32</runtimeBits>
+                                    </jre>
+                                    <versionInfo>
+                                        <fileVersion>0.1.0.0</fileVersion>
+                                        <txtFileVersion>${project.version}</txtFileVersion>
+                                        <fileDescription>${project.name}</fileDescription>
+                                        <copyright>${project.copyright}</copyright>
+                                        <productVersion>0.1.0.0</productVersion>
+                                        <txtProductVersion>0.1.0.0</txtProductVersion>
+                                        <productName>${project.name}</productName>
+                                        <companyName>${project.companyName}</companyName>
+                                        <internalName>${project.artifactId}</internalName>
+                                        <originalFilename>${project.artifactId}.exe</originalFilename>
+                                    </versionInfo>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
         <profile>
             <id>win64</id>
 
-            <activation>
-                <os>
-                    <family>windows</family>
-                    <arch>amd64</arch>
-                </os>
-            </activation>
-
             <properties>
+                <project.platform>win64</project.platform>
                 <xulrunnerPath>xulrunner-24.0.en-US.win64-x86_64</xulrunnerPath>
             </properties>
 
@@ -164,10 +184,74 @@
                     <version>${swt-win64.version}</version>
                 </dependency>
             </dependencies>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.akathist.maven.plugins.launch4j</groupId>
+                        <artifactId>launch4j-maven-plugin</artifactId>
+                        <version>1.7.8</version>
+                        <executions>
+                            <execution>
+                                <id>win64-executable</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>launch4j</goal>
+                                </goals>
+                                <configuration>
+                                    <headerType>gui</headerType>
+                                    <jar>
+                                        ${project.build.directory}/${project.artifactId}-${project.version}.${project.packaging}
+                                    </jar>
+                                    <outfile>
+                                        ${project.build.directory}/deploy/${project.artifactId}-${project.version}-${project.platform}/${project.artifactId}.exe
+                                    </outfile>
+                                    <downloadUrl>http://java.com/download</downloadUrl>
+                                    <stayAlive>true</stayAlive>
+                                    <jre>
+                                        <minVersion>1.8.0</minVersion>
+                                        <jdkPreference>preferJre</jdkPreference>
+                                        <runtimeBits>64</runtimeBits>
+                                    </jre>
+                                    <versionInfo>
+                                        <fileVersion>0.1.0.0</fileVersion>
+                                        <txtFileVersion>${project.version}</txtFileVersion>
+                                        <fileDescription>${project.name}</fileDescription>
+                                        <copyright>${project.copyright}</copyright>
+                                        <productVersion>0.1.0.0</productVersion>
+                                        <txtProductVersion>0.1.0.0</txtProductVersion>
+                                        <productName>${project.name}</productName>
+                                        <companyName>${project.companyName}</companyName>
+                                        <internalName>${project.artifactId}</internalName>
+                                        <originalFilename>${project.artifactId}.exe</originalFilename>
+                                    </versionInfo>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 
     <build>
+        <resources>
+            <resource>
+                <directory>${project.basedir}/src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>${project.basedir}/src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>application.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>${project.basedir}/src/main/xulrunner/${xulrunnerPath}</directory>
+                <targetPath>${project.build.outputDirectory}/xulrunner</targetPath>
+            </resource>
+        </resources>
+
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -194,41 +278,57 @@
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.10</version>
-                <executions>
-                    <execution>
-                        <id>copy-dependencies</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/dependencies</outputDirectory>
-                            <includeScope>compile</includeScope>
-                        </configuration>
-                    </execution>
-                </executions>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <archive>
+                        <addMavenDescriptor>false</addMavenDescriptor>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                            <classpathPrefix>libraries/</classpathPrefix>
+                            <mainClass>net.peterfolta.webview.main.Main</mainClass>
+                        </manifest>
+                        <manifestEntries>
+                            <Class-Path>./</Class-Path>
+                        </manifestEntries>
+                    </archive>
+                    <includes>
+                        <include>**/*.class</include>
+                    </includes>
+                </configuration>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.7</version>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.5.1</version>
                 <executions>
                     <execution>
-                        <id>copy-resources</id>
-                        <phase>prepare-package</phase>
+                        <id>assembly</id>
+                        <phase>package</phase>
                         <goals>
-                            <goal>copy-resources</goal>
+                            <goal>attached</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${project.build.directory}/xulrunner</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>src/main/xulrunner/${xulrunnerPath}</directory>
-                                </resource>
-                            </resources>
+                            <descriptor>${project.basedir}/src/main/assembly/assembly.xml</descriptor>
+                            <finalName>deploy/${project.artifactId}-${project.version}-${project.platform}</finalName>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <attach>false</attach>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>package</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>attached</goal>
+                        </goals>
+                        <configuration>
+                            <descriptor>${project.basedir}/src/main/assembly/package.xml</descriptor>
+                            <finalName>deploy/${project.artifactId}-${project.version}-${project.platform}</finalName>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <attach>false</attach>
                         </configuration>
                     </execution>
                 </executions>
