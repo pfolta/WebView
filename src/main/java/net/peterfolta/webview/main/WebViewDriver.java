@@ -15,6 +15,10 @@ package net.peterfolta.webview.main;
 
 import net.peterfolta.webview.controller.GUIController;
 import net.peterfolta.webview.controller.WVAppController;
+import net.peterfolta.webview.xulrunner.XULConfigurator;
+
+import java.io.File;
+import java.net.URISyntaxException;
 
 public class WebViewDriver {
 
@@ -22,16 +26,30 @@ public class WebViewDriver {
     private GUIController guiController;
 
     public WebViewDriver(String wvAppFile) {
-        String XULRunnerPath = System.getProperty("user.dir") + System.getProperty("file.separator") + "target" + System.getProperty("file.separator") + "xulrunner";
-
-        System.setProperty("org.eclipse.swt.browser.XULRunnerPath", XULRunnerPath);
-        System.setProperty("org.eclipse.swt.browser.MOZ_PROFILE_PATH", System.getProperty("user.dir") + System.getProperty("file.separator") + "profile");
+        setXULRunnerApplicationPath();
 
         wvAppController = new WVAppController(wvAppFile);
         wvAppController.read();
 
         guiController = new GUIController();
         guiController.createBrowserWindow(wvAppController.getWvApp());
+    }
+
+    private void setXULRunnerApplicationPath() {
+        try {
+            File applicationLocation = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
+            String xulRunnerPath;
+
+            while (!applicationLocation.isDirectory()) {
+                applicationLocation = applicationLocation.getParentFile();
+            }
+
+            xulRunnerPath = applicationLocation.getPath() + System.getProperty("file.separator") + "xulrunner";
+
+            XULConfigurator.setXULRunnerApplicationPath(xulRunnerPath);
+        } catch (URISyntaxException exception) {
+            Main.exitWithException("An error occurred while trying to locate the XULRunner Runtime.", exception);
+        }
     }
 
 }
