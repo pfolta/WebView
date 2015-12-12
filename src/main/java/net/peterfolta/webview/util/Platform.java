@@ -15,7 +15,7 @@ package net.peterfolta.webview.util;
 
 public final class Platform {
 
-    // Suppress default constructor for noninstantiability
+    // Suppress Default Constructor for Noninstantiability
     private Platform() {
         throw new AssertionError();
     }

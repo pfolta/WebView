@@ -21,7 +21,7 @@ import java.io.ByteArrayInputStream;
 
 public final class ImageTools {
 
-    // Suppress default constructor for noninstantiability
+    // Suppress Default Constructor for Noninstantiability
     private ImageTools() {
         throw new AssertionError();
     }
