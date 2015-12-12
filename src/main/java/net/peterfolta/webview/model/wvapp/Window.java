@@ -27,16 +27,16 @@ public class Window {
     private boolean maximized;
 
     public static class Builder implements net.peterfolta.webview.util.Builder<Window> {
-        private int x               = 0;
-        private int y               = 0;
-        private int width           = 800;
-        private int height          = 600;
+        private int x = 0;
+        private int y = 0;
+        private int width = 800;
+        private int height = 600;
 
-        private boolean resizable   = true;
+        private boolean resizable = true;
         private boolean minimizable = true;
         private boolean maximizable = true;
 
-        private boolean maximized   = false;
+        private boolean maximized = false;
 
         public Builder x(int x) {
             this.x = x;

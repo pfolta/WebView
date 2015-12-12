@@ -21,10 +21,10 @@ public class Keyboard {
     private boolean refreshEnabled;
 
     public static class Builder implements net.peterfolta.webview.util.Builder<Keyboard> {
-        private boolean backEnabled     = true;
-        private boolean forwardEnabled  = true;
-        private boolean homeEnabled     = true;
-        private boolean refreshEnabled  = true;
+        private boolean backEnabled = true;
+        private boolean forwardEnabled = true;
+        private boolean homeEnabled = true;
+        private boolean refreshEnabled = true;
 
         public Builder backEnabled(boolean backEnabled) {
             this.backEnabled = backEnabled;
