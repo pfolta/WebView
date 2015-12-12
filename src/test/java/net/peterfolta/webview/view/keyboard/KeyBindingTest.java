@@ -24,7 +24,7 @@ public class KeyBindingTest {
     @Test
     public void whenAltLeftArrowOrCommandLeftArrowOnMacIsPressedItShouldReturnTrue() {
         int stateMask = 0;
-        int keyCode   = 0x1000003;
+        int keyCode = 0x1000003;
 
         if (Platform.isWindows() || Platform.isLinux()) {
             stateMask = SWT.ALT;
@@ -40,7 +40,7 @@ public class KeyBindingTest {
     @Test
     public void whenAltRightArrowOrCommandRightArrowOnMacIsPressedItShouldReturnTrue() {
         int stateMask = 0;
-        int keyCode   = 0x1000004;
+        int keyCode = 0x1000004;
 
         if (Platform.isWindows() || Platform.isLinux()) {
             stateMask = SWT.ALT;
@@ -56,7 +56,7 @@ public class KeyBindingTest {
     @Test
     public void whenAltHomeOrCommandHomeOnMacIsPressedItShouldReturnTrue() {
         int stateMask = 0;
-        int keyCode   = SWT.HOME;
+        int keyCode = SWT.HOME;
 
         if (Platform.isWindows() || Platform.isLinux()) {
             stateMask = SWT.ALT;
@@ -72,15 +72,15 @@ public class KeyBindingTest {
     @Test
     public void whenF5OrCommandROnMacIsPressedItShouldReturnTrue() {
         int stateMask = 0;
-        int keyCode   = 0;
+        int keyCode = 0;
 
         if (Platform.isWindows() || Platform.isLinux()) {
-            keyCode   = SWT.F5;
+            keyCode = SWT.F5;
         }
 
         if (Platform.isMac()) {
             stateMask = SWT.COMMAND;
-            keyCode   = 'R';
+            keyCode = 'R';
         }
 
         assertTrue(KeyBinding.matchesRefreshBinding(stateMask, keyCode));
