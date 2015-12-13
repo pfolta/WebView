@@ -21,6 +21,8 @@
     </repositories>
 
     <properties>
+        <project.standardizedVersion>0.1.0.0</project.standardizedVersion>
+
         <project.copyright>2014-2015 Peter Folta. All rights reserved.</project.copyright>
         <project.companyName>Peter Folta</project.companyName>
 
@@ -163,12 +165,12 @@
                                         <runtimeBits>32</runtimeBits>
                                     </jre>
                                     <versionInfo>
-                                        <fileVersion>0.1.0.0</fileVersion>
+                                        <fileVersion>${project.standardizedVersion}</fileVersion>
                                         <txtFileVersion>${project.version}</txtFileVersion>
                                         <fileDescription>${project.name}</fileDescription>
                                         <copyright>${project.copyright}</copyright>
-                                        <productVersion>0.1.0.0</productVersion>
-                                        <txtProductVersion>0.1.0.0</txtProductVersion>
+                                        <productVersion>${project.standardizedVersion}</productVersion>
+                                        <txtProductVersion>${project.standardizedVersion}</txtProductVersion>
                                         <productName>${project.name}</productName>
                                         <companyName>${project.companyName}</companyName>
                                         <internalName>${project.artifactId}</internalName>
@@ -229,12 +231,12 @@
                                         <runtimeBits>64</runtimeBits>
                                     </jre>
                                     <versionInfo>
-                                        <fileVersion>0.1.0.0</fileVersion>
+                                        <fileVersion>${project.standardizedVersion}</fileVersion>
                                         <txtFileVersion>${project.version}</txtFileVersion>
                                         <fileDescription>${project.name}</fileDescription>
                                         <copyright>${project.copyright}</copyright>
-                                        <productVersion>0.1.0.0</productVersion>
-                                        <txtProductVersion>0.1.0.0</txtProductVersion>
+                                        <productVersion>${project.standardizedVersion}</productVersion>
+                                        <txtProductVersion>${project.standardizedVersion}</txtProductVersion>
                                         <productName>${project.name}</productName>
                                         <companyName>${project.companyName}</companyName>
                                         <internalName>${project.artifactId}</internalName>
