@@ -1,4 +1,9 @@
+# IntelliJ Project Files
+*.iml
 /.idea
 
-*.iml
+# Compiled Java Classes
 *.class
+
+# Maven Build Output
+/target
