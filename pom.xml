@@ -314,6 +314,7 @@
                     <includes>
                         <include>**/*.class</include>
                     </includes>
+                    <forceCreation>true</forceCreation>
                 </configuration>
             </plugin>
 
@@ -337,7 +338,7 @@
                     </execution>
                     <execution>
                         <id>package</id>
-                        <phase>package</phase>
+                        <phase>verify</phase>
                         <goals>
                             <goal>attached</goal>
                         </goals>
