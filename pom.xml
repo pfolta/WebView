@@ -337,13 +337,13 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>package</id>
+                        <id>archive</id>
                         <phase>verify</phase>
                         <goals>
                             <goal>attached</goal>
                         </goals>
                         <configuration>
-                            <descriptor>${project.basedir}/src/main/assembly/package.xml</descriptor>
+                            <descriptor>${project.basedir}/src/main/assembly/archive.xml</descriptor>
                             <finalName>deploy/${project.artifactId}-${project.version}-${build.platform}</finalName>
                             <appendAssemblyId>false</appendAssemblyId>
                             <attach>false</attach>
