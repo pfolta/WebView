@@ -309,6 +309,9 @@
                         </manifest>
                         <manifestEntries>
                             <Class-Path>./</Class-Path>
+                            <Build-Platform>${build.platform}</Build-Platform>
+                            <Build-OsName>${build.osName}</Build-OsName>
+                            <Build-Arch>${build.arch}</Build-Arch>
                         </manifestEntries>
                     </archive>
                     <includes>
