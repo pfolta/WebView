@@ -9,9 +9,17 @@
     <artifactId>WebView</artifactId>
     <name>WebView</name>
 
+    <organization>
+        <name>Peter Folta</name>
+    </organization>
+
     <version>0.0.1-SNAPSHOT</version>
 
     <packaging>jar</packaging>
+
+    <scm>
+        <connection>scm:git:https://github.com/pfolta/WebView.git</connection>
+    </scm>
 
     <repositories>
         <repository>
@@ -21,11 +29,11 @@
     </repositories>
 
     <properties>
-        <project.standardizedVersion>0.1.0.0</project.standardizedVersion>
+        <project.standardizedVersion>0.0.1.0</project.standardizedVersion>
 
-        <project.copyright>2014-2015 Peter Folta. All rights reserved.</project.copyright>
-        <project.companyName>Peter Folta</project.companyName>
+        <project.copyright>Copyright (C) 2014-2015 Peter Folta.</project.copyright>
 
+        <maven.build.timestamp.format>EEE, d MMM yyyy HH:mm:ss z</maven.build.timestamp.format>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
 
@@ -166,13 +174,13 @@
                                     </jre>
                                     <versionInfo>
                                         <fileVersion>${project.standardizedVersion}</fileVersion>
-                                        <txtFileVersion>${project.version}</txtFileVersion>
+                                        <txtFileVersion>${project.version}-${shortBuildNumber}</txtFileVersion>
                                         <fileDescription>${project.name}</fileDescription>
                                         <copyright>${project.copyright}</copyright>
                                         <productVersion>${project.standardizedVersion}</productVersion>
-                                        <txtProductVersion>${project.standardizedVersion}</txtProductVersion>
+                                        <txtProductVersion>${project.version}-${shortBuildNumber}</txtProductVersion>
                                         <productName>${project.name}</productName>
-                                        <companyName>${project.companyName}</companyName>
+                                        <companyName>${project.organization.name}</companyName>
                                         <internalName>${project.artifactId}</internalName>
                                         <originalFilename>${project.artifactId}.exe</originalFilename>
                                     </versionInfo>
@@ -232,13 +240,13 @@
                                     </jre>
                                     <versionInfo>
                                         <fileVersion>${project.standardizedVersion}</fileVersion>
-                                        <txtFileVersion>${project.version}</txtFileVersion>
+                                        <txtFileVersion>${project.version}-${shortBuildNumber}</txtFileVersion>
                                         <fileDescription>${project.name}</fileDescription>
                                         <copyright>${project.copyright}</copyright>
                                         <productVersion>${project.standardizedVersion}</productVersion>
-                                        <txtProductVersion>${project.standardizedVersion}</txtProductVersion>
+                                        <txtProductVersion>${project.version}-${shortBuildNumber}</txtProductVersion>
                                         <productName>${project.name}</productName>
-                                        <companyName>${project.companyName}</companyName>
+                                        <companyName>${project.organization.name}</companyName>
                                         <internalName>${project.artifactId}</internalName>
                                         <originalFilename>${project.artifactId}.exe</originalFilename>
                                     </versionInfo>
@@ -272,6 +280,44 @@
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+                <version>1.4</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>create</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <doCheck>false</doCheck>
+                    <doUpdate>false</doUpdate>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.groovy.maven</groupId>
+                <artifactId>gmaven-plugin</artifactId>
+                <version>1.0</version>
+                <executions>
+                    <execution>
+                        <id>setup-groovy</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <source>
+                                project.properties['shortBuildNumber'] = project.properties['buildNumber'].substring(0, 7);
+                            </source>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.4.0</version>
                 <executions>
@@ -303,14 +349,20 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                             <classpathPrefix>libraries/</classpathPrefix>
                             <mainClass>net.peterfolta.webview.main.Main</mainClass>
                         </manifest>
                         <manifestEntries>
                             <Class-Path>./</Class-Path>
+
+                            <Implementation-Build-Number>${buildNumber}</Implementation-Build-Number>
+                            <Implementation-Short-Build-Number>${shortBuildNumber}</Implementation-Short-Build-Number>
+                            <Implementation-Build-Time>${maven.build.timestamp}</Implementation-Build-Time>
+
+                            <Application-Copyright>${project.copyright}</Application-Copyright>
+
                             <Build-Platform>${build.platform}</Build-Platform>
-                            <Build-OsName>${build.osName}</Build-OsName>
+                            <Build-Os-Name>${build.osName}</Build-Os-Name>
                             <Build-Arch>${build.arch}</Build-Arch>
                         </manifestEntries>
                     </archive>
