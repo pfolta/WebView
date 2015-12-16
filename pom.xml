@@ -302,7 +302,7 @@
                 <version>1.0</version>
                 <executions>
                     <execution>
-                        <id>setup-groovy</id>
+                        <id>git-revision</id>
                         <phase>validate</phase>
                         <goals>
                             <goal>execute</goal>
