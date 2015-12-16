@@ -31,6 +31,7 @@
     <properties>
         <project.standardizedVersion>0.0.1.0</project.standardizedVersion>
 
+        <project.description>A desktop client for web applications</project.description>
         <project.copyright>Copyright (C) 2014-2015 Peter Folta.</project.copyright>
 
         <maven.build.timestamp.format>EEE, d MMM yyyy HH:mm:ss z</maven.build.timestamp.format>
@@ -175,7 +176,7 @@
                                     <versionInfo>
                                         <fileVersion>${project.standardizedVersion}</fileVersion>
                                         <txtFileVersion>${project.version}-${shortBuildNumber}</txtFileVersion>
-                                        <fileDescription>${project.name}</fileDescription>
+                                        <fileDescription>${project.name} - ${project.description}</fileDescription>
                                         <copyright>${project.copyright}</copyright>
                                         <productVersion>${project.standardizedVersion}</productVersion>
                                         <txtProductVersion>${project.version}-${shortBuildNumber}</txtProductVersion>
@@ -241,7 +242,7 @@
                                     <versionInfo>
                                         <fileVersion>${project.standardizedVersion}</fileVersion>
                                         <txtFileVersion>${project.version}-${shortBuildNumber}</txtFileVersion>
-                                        <fileDescription>${project.name}</fileDescription>
+                                        <fileDescription>${project.name} - ${project.description}</fileDescription>
                                         <copyright>${project.copyright}</copyright>
                                         <productVersion>${project.standardizedVersion}</productVersion>
                                         <txtProductVersion>${project.version}-${shortBuildNumber}</txtProductVersion>
