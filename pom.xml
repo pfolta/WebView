@@ -462,7 +462,8 @@
                         </goals>
                         <configuration>
                             <descriptor>${project.basedir}/src/main/assembly/create-assembly.xml</descriptor>
-                            <finalName>deploy/${project.artifactId}-${project.version}-${build.platform}</finalName>
+                            <outputDirectory>${project.build.directory}/deploy</outputDirectory>
+                            <finalName>${project.artifactId}-${project.version}-${build.platform}</finalName>
                             <appendAssemblyId>false</appendAssemblyId>
                             <attach>false</attach>
                         </configuration>
@@ -475,7 +476,8 @@
                         </goals>
                         <configuration>
                             <descriptor>${project.basedir}/src/main/assembly/create-archives.xml</descriptor>
-                            <finalName>deploy/${project.artifactId}-${project.version}-${build.platform}</finalName>
+                            <outputDirectory>${project.build.directory}/deploy</outputDirectory>
+                            <finalName>${project.artifactId}-${project.version}-${build.platform}</finalName>
                             <appendAssemblyId>false</appendAssemblyId>
                             <attach>false</attach>
                         </configuration>
