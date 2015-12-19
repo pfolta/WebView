@@ -18,30 +18,30 @@ goto begin
 
 :run1
 set profile=linux-x86
-goto :runMaven
+goto :build
 
 :run2
 set profile=linux-x86_64
-goto :runMaven
+goto :build
 
 :run3
 set profile=mac-x86_64
-goto :runMaven
+goto :build
 
 :run4
 set profile=win32
-goto :runMaven
+goto :build
 
 :run5
 set profile=win64
-goto :runMaven
+goto :build
 
 :run6
 endlocal
 goto :EOF
 
-:runMaven
+:build
 echo;
 echo === Building WebView for %profile%... ===
-mvn -P%profile% clean validate compile test package verify
+call mvn -P%profile% clean validate compile test package verify
 goto :run6
