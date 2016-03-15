@@ -1,0 +1,16 @@
+language: java
+jdk: oraclejdk8
+
+install: true
+
+sudo: required
+before_script:
+  - sudo apt-get update
+  - sudo apt-get install lib32z1 lib32ncurses5
+
+script:
+  - mvn -Plinux-x86 clean validate compile package verify -DskipTests
+  - mvn -Plinux-x86_64 clean validate compile package verify -DskipTests
+  - mvn -Pmac-x86_64 clean validate compile package verify -DskipTests
+  - mvn -Pwin32 clean validate compile package verify -DskipTests
+  - mvn -Pwin64 clean validate compile package verify -DskipTests
