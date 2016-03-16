@@ -109,7 +109,7 @@
                                 </goals>
                                 <configuration>
                                     <descriptor>${project.basedir}/src/main/assembly/copy-artifact-jar.xml</descriptor>
-                                    <finalName>deploy/${project.artifactId}-${project.version}-${build.platform}</finalName>
+                                    <finalName>dist/${project.artifactId}-${project.version}-${build.platform}</finalName>
                                     <appendAssemblyId>false</appendAssemblyId>
                                     <attach>false</attach>
                                 </configuration>
@@ -153,7 +153,7 @@
                                 </goals>
                                 <configuration>
                                     <descriptor>${project.basedir}/src/main/assembly/copy-artifact-jar.xml</descriptor>
-                                    <finalName>deploy/${project.artifactId}-${project.version}-${build.platform}</finalName>
+                                    <finalName>dist/${project.artifactId}-${project.version}-${build.platform}</finalName>
                                     <appendAssemblyId>false</appendAssemblyId>
                                     <attach>false</attach>
                                 </configuration>
@@ -198,7 +198,7 @@
                                 </goals>
                                 <configuration>
                                     <descriptor>${project.basedir}/src/main/assembly/copy-artifact-jar.xml</descriptor>
-                                    <finalName>deploy/${project.artifactId}-${project.version}-${build.platform}</finalName>
+                                    <finalName>dist/${project.artifactId}-${project.version}-${build.platform}</finalName>
                                     <appendAssemblyId>false</appendAssemblyId>
                                     <attach>false</attach>
                                 </configuration>
@@ -246,7 +246,7 @@
                                         ${project.build.directory}/${project.artifactId}-${project.version}.${project.packaging}
                                     </jar>
                                     <outfile>
-                                        ${project.build.directory}/deploy/${project.artifactId}-${project.version}-${build.platform}/${project.artifactId}.exe
+                                        ${project.build.directory}/dist/${project.artifactId}-${project.version}-${build.platform}/${project.artifactId}.exe
                                     </outfile>
                                     <downloadUrl>http://java.com/download</downloadUrl>
                                     <stayAlive>true</stayAlive>
@@ -312,7 +312,7 @@
                                         ${project.build.directory}/${project.artifactId}-${project.version}.${project.packaging}
                                     </jar>
                                     <outfile>
-                                        ${project.build.directory}/deploy/${project.artifactId}-${project.version}-${build.platform}/${project.artifactId}.exe
+                                        ${project.build.directory}/dist/${project.artifactId}-${project.version}-${build.platform}/${project.artifactId}.exe
                                     </outfile>
                                     <downloadUrl>http://java.com/download</downloadUrl>
                                     <stayAlive>true</stayAlive>
@@ -469,7 +469,7 @@
                         </goals>
                         <configuration>
                             <descriptor>${project.basedir}/src/main/assembly/create-assembly.xml</descriptor>
-                            <outputDirectory>${project.build.directory}/deploy</outputDirectory>
+                            <outputDirectory>${project.build.directory}/dist</outputDirectory>
                             <finalName>${project.artifactId}-${project.version}-${build.platform}</finalName>
                             <appendAssemblyId>false</appendAssemblyId>
                             <attach>false</attach>
@@ -483,7 +483,7 @@
                         </goals>
                         <configuration>
                             <descriptor>${project.basedir}/src/main/assembly/create-archives.xml</descriptor>
-                            <outputDirectory>${project.build.directory}/deploy</outputDirectory>
+                            <outputDirectory>${project.build.directory}/dist</outputDirectory>
                             <finalName>${project.artifactId}-${project.version}-${build.platform}</finalName>
                             <appendAssemblyId>false</appendAssemblyId>
                             <attach>false</attach>

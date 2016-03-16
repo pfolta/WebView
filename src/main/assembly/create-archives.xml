@@ -16,7 +16,7 @@
     <fileSets>
         <fileSet>
             <directory>
-                ${project.build.directory}/deploy/${project.artifactId}-${project.version}-${build.platform}
+                ${project.build.directory}/dist/${project.artifactId}-${project.version}-${build.platform}
             </directory>
             <outputDirectory></outputDirectory>
         </fileSet>
