@@ -1,6 +1,12 @@
 language: java
 jdk: oraclejdk8
 
+env:
+  global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   # via the "travis encrypt" command using the project repo's public key
+   - secure: "dBRkHQeQ6c4M0COHTgkLylR/bDajoFJ86VKA1IIZyCEnBqO5fX1FZn3WioCO79yY3LLVUMjgR91580wAK9L1l0mVI0dSftPgFyRBRHJxZF7ryYQ7Snmhru1GLSoRoIvn50oFxXYU99kxBfrTcaiVP0C5GMt1m3bTqKRqbJ60KRL8tDUu+QqBGqMeZr4yPhYxq8fDcndhlYiWRoax5or7ejTWehKFouRCI7eKppLVTZ0JoMUHnUpeW0ZNoqoIeWvjHqVRKnmjmGeCzS8s33V7eZAO5mk+YtECAhukqDqFNn3edtU7g16Ik/Q4LsiNtamuDrM/aFtK1dd88RdwONUl4HUw3Kq+9A7SMhcWyh1J7Zy2qiJlC/zh7py9mnPj+/BYpg/V3iyYnAcBQ+GO/6iiGVMTLFg2Fh5WQo1ytBGWYw6JjV3AsFZsmQS3fNbf7tKuLEZWR+uzSMkqVKMgY0H6Ur4UNgRqKsmmJrEAPUsT/nnQW6SMSwYOeUlG5dPL7Q9YFTh8tcg+fnGnTvPaWadXLaqQnAYpa1pbKb//eHVQ+UuV1jRgc+JwynmVlqsOodbGkZVdYfqeMDkOjz4CQ60GkYcEiye484ZWeNk47FKWbV5/gC7npP9UztASbqdx0C2O/PcZ58+eJaL07UT1uE3ZElBjIGK8KcSr7TGocPmdexk="
+
 install: true
 
 sudo: required
@@ -14,3 +20,13 @@ script:
   - mvn -Pmac-x86_64 clean validate compile package verify -DskipTests
   - mvn -Pwin32 clean validate compile package verify -DskipTests
   - mvn -Pwin64 clean validate compile package verify -DskipTests
+
+addons:
+  coverity_scan:
+    project:
+      name: "pfolta/WebView"
+      description: "Build submitted via Travis CI"
+    notification_email: mail@peterfolta.net
+    build_command_prepend: "mvn clean"
+    build_command: "mvn -DskipTests=true compile -Plinux-x86_64"
+    branch_pattern: master
